@@ -72,9 +72,9 @@ class Qiandao extends React.Component {
       return
     }
     const param = {
+      mobile: this.state.mobile,
       groupCode: this.state.groupCode,
       nickname: this.state.nickname,
-      mobile: this.state.mobile,
       height: this.state.height,
       targetWeight: this.state.targetWeight,
       weekTargetWeight: this.state.weekTargetWeight,
@@ -83,6 +83,7 @@ class Qiandao extends React.Component {
     }
     writeInfo(param).then(res => {
       if (res.code === '200') {
+        localStorage.setItem('qiandaoInfo', param);
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
           { text: '返回', onPress: () => {}},
           { text: '查看周报', onPress: () => this.toPaper() },
