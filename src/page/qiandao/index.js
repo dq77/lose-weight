@@ -104,7 +104,7 @@ class Qiandao extends React.Component {
         </div>
         <div className="form-area">
           <List>
-            <InputItem labelNumber={6} onChange={this.changemobile} type="mobile" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
+            <InputItem labelNumber={6} onChange={this.changemobile} type="phone" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
             <InputItem labelNumber={6} onChange={this.changegroupCode} type="digit" value={groupCode} placeholder="请输入群号">群号</InputItem>
             <InputItem labelNumber={6} onChange={this.changenickname} value={nickname} placeholder="请输入昵称">昵称</InputItem>
             <InputItem labelNumber={6} onChange={this.changeheight} type="digit" value={height} placeholder="请输入身高" extra="cm">身高</InputItem>
