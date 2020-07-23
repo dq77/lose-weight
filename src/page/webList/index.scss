@@ -1,0 +1,25 @@
+.webListPage{
+  .webList{
+    height: 100%;
+    padding: 20px;
+    background-color: #F2F2F2;
+    .webItem{
+      position: relative;
+      background-color: #FFF;
+      margin: 20px;
+      border-radius: 6px;
+      .link{
+        color: #333;
+        display: block;
+        padding: 20px;
+        font-size: 16px;
+      }
+      .rightIcon{
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        height: 18px;
+      }
+    }
+  }
+}
