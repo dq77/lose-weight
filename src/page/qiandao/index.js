@@ -25,16 +25,17 @@ class Qiandao extends React.Component {
 
   componentDidMount() {
     document.title='每日打卡'
-    const qiandaoInfo = localStorage.getItem('qiandaoInfo');
+    const qiandaoInfo = localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
+      const info = JSON.parse(qiandaoInfo)
       this.setState({
-        mobile: qiandaoInfo.mobile,
-        groupCode: qiandaoInfo.groupCode,
-        nickname: qiandaoInfo.nickname,
-        height: qiandaoInfo.height,
-        targetWeight: qiandaoInfo.targetWeight,
-        monthTargetWeight: qiandaoInfo.monthTargetWeight,
-        weekTargetWeight: qiandaoInfo.weekTargetWeight,
+        mobile: info.mobile,
+        groupCode: info.groupCode,
+        nickname: info.nickname,
+        height: info.height,
+        targetWeight: info.targetWeight,
+        monthTargetWeight: info.monthTargetWeight,
+        weekTargetWeight: info.weekTargetWeight,
       })
     }
     this.getDay()
@@ -72,7 +73,7 @@ class Qiandao extends React.Component {
       return
     }
     const param = {
-      mobile: this.state.mobile,
+      mobile: this.state.mobile.replace(/\s*/g,""),
       groupCode: this.state.groupCode,
       nickname: this.state.nickname,
       height: this.state.height,
@@ -83,7 +84,7 @@ class Qiandao extends React.Component {
     }
     writeInfo(param).then(res => {
       if (res.code === '200') {
-        localStorage.setItem('qiandaoInfo', param);
+        localStorage.setItem('qiandaoInfo', JSON.stringify(param));
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
           { text: '返回', onPress: () => {}},
           { text: '查看周报', onPress: () => this.toPaper() },
@@ -94,7 +95,7 @@ class Qiandao extends React.Component {
     })
   }
   toPaper = () => {
-    this.props.history.push({ pathname: '/webList', state: {} });
+    // this.props.history.push({ pathname: '/webList', state: {} });
   }
   render () {
     const { today, week, mobile, groupCode, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
