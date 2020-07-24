@@ -3,7 +3,7 @@ import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { writeInfo } from '../../api/qiandao';
-import {dateFormat} from '../../utils/date'
+import { dateFormat } from '../../utils/date'
 
 class Qiandao extends React.Component {
   constructor(props) {
@@ -27,16 +27,20 @@ class Qiandao extends React.Component {
     document.title='每日打卡'
     const qiandaoInfo = localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
-      const info = JSON.parse(qiandaoInfo)
-      this.setState({
-        mobile: info.mobile,
-        groupCode: info.groupCode,
-        nickname: info.nickname,
-        height: info.height,
-        targetWeight: info.targetWeight,
-        monthTargetWeight: info.monthTargetWeight,
-        weekTargetWeight: info.weekTargetWeight,
-      })
+      try {
+        const info = JSON.parse(qiandaoInfo)
+        this.setState({
+          mobile: info.mobile,
+          groupCode: info.groupCode,
+          nickname: info.nickname,
+          height: info.height,
+          targetWeight: info.targetWeight,
+          monthTargetWeight: info.monthTargetWeight,
+          weekTargetWeight: info.weekTargetWeight,
+        })
+      } catch(e) {
+        localStorage.removeItem('qiandaoInfo')
+      }
     }
     this.getDay()
   }
@@ -47,7 +51,7 @@ class Qiandao extends React.Component {
     this.setState({ today: today, week: week })
   }
 
-  changemobile = (mobile) => { this.setState({ mobile: mobile }) }
+  changemobile = (mobile) => { this.setState({ mobile: mobile.replace(/\s*/g,"") }) }
   changegroupCode = (groupCode) => { this.setState({ groupCode: groupCode }) }
   changenickname = (nickname) => { this.setState({ nickname: nickname }) }
   changeheight = (height) => { this.setState({ height: height }) }
@@ -73,7 +77,7 @@ class Qiandao extends React.Component {
       return
     }
     const param = {
-      mobile: this.state.mobile.replace(/\s*/g,""),
+      mobile: this.state.mobile,
       groupCode: this.state.groupCode,
       nickname: this.state.nickname,
       height: this.state.height,
@@ -95,7 +99,7 @@ class Qiandao extends React.Component {
     })
   }
   toPaper = () => {
-    // this.props.history.push({ pathname: '/webList', state: {} });
+    this.props.history.push({ pathname: '/weekList/12345' });
   }
   render () {
     const { today, week, mobile, groupCode, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state

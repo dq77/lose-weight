@@ -1,0 +1,75 @@
+.weeklist-page{
+  width: 100%;
+  .top-info{
+    padding: 20px;
+    font-size: 18px;
+    .id{
+      margin-left: 10px;
+    }
+  }
+  .table-area{
+    box-sizing: border-box;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 20px;
+    color: #606266;
+    .thead-area{
+      position: relative;
+      width: 684px;
+      z-index: 4;
+      margin-bottom: -1px;
+      font-weight: bold;
+    }
+    .tbody-area{
+      position: relative;
+      z-index: 2;
+      width: 684px;
+      overflow-y: scroll;
+      overflow-x: auto;
+      max-height: 314px;
+    }
+    .list-table{
+      background-color: #FFF;
+      width: 400px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      border: 1px solid #ebeef5;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      max-height: 300px;
+      tr:nth-child(2n){
+        background-color: #fafafa;
+      }
+      tr:hover{
+        color: #303133;
+      }
+      td{
+        min-width: 34px;
+        padding: 10px 0 8px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 14px;
+      }
+      .w70{
+        width: 70px;
+      }
+      .w35{
+        width: 46px;
+        // border-right-color: green;
+      }
+      .yellow{
+        background-color: #fdf5e6;
+      }
+      .green{
+        background-color: #f0f9eb;
+      }
+    }
+  }
+  .sign-area{
+    margin-top: 50px;
+    padding: 20px;
+  }
+}

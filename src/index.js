@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Qiandao from './page/qiandao/index';
-import WebList from './page/webList/index';
+import WeekList from './page/weekList/index';
 // import XsyJianLi from './page/xsyJianLi/index';
 // import DqJianLi from './page/dqJianLi/index';
 import {HashRouter, Route} from 'react-router-dom';
@@ -13,7 +13,7 @@ ReactDOM.render(
     <HashRouter>
         <Route exact path="/" component={ App } />
         <Route path="/qiandao" component={ Qiandao } />
-        <Route path="/webList" component={ WebList } />
+        <Route path="/weekList/:id" component={ WeekList } />
     </HashRouter>
     , document.getElementById('root'));
 

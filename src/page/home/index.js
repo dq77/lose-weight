@@ -8,7 +8,7 @@ class Home extends React.Component {
     this.state = {
       bannerList: [
         {url: '/qiandao', img: 'https://zos.alipayobjects.com/rmsportal/IJOtIlfsYdTyaDTRVrLI.png'},
-        // {url: '/webList', img: 'https://zos.alipayobjects.com/rmsportal/AiyWuByWklrrUDlFignR.png'},
+        {url: '/weekList', img: 'https://zos.alipayobjects.com/rmsportal/AiyWuByWklrrUDlFignR.png'},
         {url: '/qiandao', img: 'https://zos.alipayobjects.com/rmsportal/AiyWuByWklrrUDlFignR.png'},
       ]
     }
@@ -17,7 +17,7 @@ class Home extends React.Component {
   componentDidMount() {
     // this.setState({
     //   bannerList: [
-    //     {url: '/webList', img: 'AiyWuByWklrrUDlFignR'},
+    //     {url: '/weekList', img: 'AiyWuByWklrrUDlFignR'},
     //     {url: '/goods', img: 'TekJlZRVCjLFexlOCuWn'},
     //     {url: '/goods', img: 'IJOtIlfsYdTyaDTRVrLI'},
     //   ]
