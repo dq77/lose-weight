@@ -46,6 +46,11 @@ class WeekList extends React.Component {
       ]
     })
   }
+  topClick = () => {
+    this.setState({
+      activeItem: {}
+    })
+  }
   clickLine = (item) => {
     this.setState({
       activeItem: item
@@ -53,9 +58,6 @@ class WeekList extends React.Component {
   }
   getEchartOption = () => {
     const item = this.state.activeItem
-    if (!item.week) {
-      item.week = []
-    }
     return {
       title: {
           text: item.nickname,
@@ -95,7 +97,7 @@ class WeekList extends React.Component {
     const { qunList, activeItem } = this.state
     return (
       <div className="weeklist-page">
-        <div className="top-info">
+        <div className="top-info" onClick={this.topClick}>
           群名： 要么瘦要么死 （群id：123456）
         </div>
         <div className="table-area">
@@ -124,7 +126,7 @@ class WeekList extends React.Component {
             <table className="list-table" border="1" cellSpacing="0">
               <tbody>
                 { qunList.map( item => (
-                  <tr key={item.id} onClick={() => {this.clickLine(item)}}>
+                  <tr key={item.id} onClick={() => {this.clickLine(item)}} className={item.id === activeItem.id ? 'active' : ''}>
                     <td className="w70">{item.nickname}</td>
                     <td className="w35">{item.height}</td>
                     { item.week.map((one, index) => (
