@@ -145,7 +145,7 @@ class WeekList extends React.Component {
               </thead>
             </table>
           </div>
-          <div className="tbody-area">
+          <div className={`tbody-area ${!!activeItem.week}`}>
             <table className="list-table" border="1" cellSpacing="0">
               <tbody>
                 { qunList.map( item => (

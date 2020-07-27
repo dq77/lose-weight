@@ -98,6 +98,11 @@ class Qiandao extends React.Component {
       }
     })
   }
+  handleEnterKey = (e) => {
+    if(e.nativeEvent.keyCode === 13){ //e.nativeEvent获取原生的事件对像
+      this.signIn()
+    }
+  }
   toPaper = () => {
     this.props.history.push({ pathname: `/weekList/${this.state.groupId}` });
   }
@@ -117,7 +122,7 @@ class Qiandao extends React.Component {
             <InputItem labelNumber={6} onChange={this.changetargetWeight} type="digit" value={targetWeight} placeholder="请输入目标体重" extra="kg">目标体重</InputItem>
             <InputItem labelNumber={6} onChange={this.changemonthTargetWeight} type="digit" value={monthTargetWeight} placeholder="请输入月目标体重" extra="kg">月目标体重</InputItem>
             <InputItem labelNumber={6} onChange={this.changeweekTargetWeight} type="digit" value={weekTargetWeight} placeholder="请输入周目标体重" extra="kg">周目标体重</InputItem>
-            <InputItem labelNumber={6} onChange={this.changetodayWeight} type="digit" value={todayWeight} placeholder="请输入今日体重" extra="kg">今日体重</InputItem>
+            <InputItem labelNumber={6} onChange={this.changetodayWeight} type="digit" value={todayWeight} placeholder="请输入今日体重" extra="kg" onKeyPress={this.handleEnterKey}>今日体重</InputItem>
           </List>
         </div>
         <div className="sign-area">
