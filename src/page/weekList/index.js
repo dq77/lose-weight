@@ -1,6 +1,7 @@
 import './index.scss'
 import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
+import { getCurrentTime } from '../../api/qiandao';
 import ReactEcharts from 'echarts-for-react';
 
 class WeekList extends React.Component {
@@ -8,6 +9,7 @@ class WeekList extends React.Component {
     super(props);
     this.state = {
       yemianId: '',
+      week: '', // 当前周数
       qunList: [],
       activeItem: {}
     }
@@ -16,10 +18,20 @@ class WeekList extends React.Component {
 
   componentDidMount() {
     document.title='统计列表'
-    this.setState({
-      yemianId: this.props.match.params.id
-    }, () => {
-      this.getList()
+    this.getWeek()
+  }
+  getWeek = () => {
+    getCurrentTime().then(res => {
+      if (res.code === '200') {
+        this.setState({
+          yemianId: this.props.match.params.id,
+          week: res.data.week
+        }, () => {
+          this.getList()
+        })
+      } else {
+        Toast.fail(res.msg, 2);
+      }
     })
   }
 
@@ -55,6 +67,17 @@ class WeekList extends React.Component {
     this.setState({
       activeItem: item
     })
+  }
+  getColorByData = (item, index) => {
+    const nowData = item.week[index]-0
+    const lastData = item.week[index-1]-0
+    let className = 'w35'
+    if (lastData > nowData) {
+      className += ' green'
+    } else if (lastData < nowData) {
+      className += ' yellow'
+    }
+    return className
   }
   getEchartOption = () => {
     const item = this.state.activeItem
@@ -101,7 +124,7 @@ class WeekList extends React.Component {
           群名： 要么瘦要么死 （群id：123456）
         </div>
         <div className="table-area">
-          <div className='thead-area'>
+          <div className="thead-area">
             <table className="list-table" border="1" cellSpacing="0">
               <thead>
                 <tr>
@@ -122,7 +145,7 @@ class WeekList extends React.Component {
               </thead>
             </table>
           </div>
-          <div className='tbody-area'>
+          <div className="tbody-area">
             <table className="list-table" border="1" cellSpacing="0">
               <tbody>
                 { qunList.map( item => (
@@ -130,7 +153,7 @@ class WeekList extends React.Component {
                     <td className="w70">{item.nickname}</td>
                     <td className="w35">{item.height}</td>
                     { item.week.map((one, index) => (
-                      <td key={index} className={(item.week[index-1]-0 > item.week[index]-0) ? 'green w35' : ((item.week[index-1]-0 < item.week[index]-0) ? 'yellow w35' : 'w35')}>
+                      <td key={index} className={this.getColorByData(item, index)}>
                         {one}
                       </td>
                     ))}
@@ -145,9 +168,7 @@ class WeekList extends React.Component {
             </table>
           </div>
         </div>
-        <div>
-          
-        </div>
+        <div />
         { activeItem.week && (
           <div>
             <ReactEcharts option={this.getEchartOption()} />

@@ -20,3 +20,13 @@ export function writeInfo (data) {
     })
   })
 }
+
+export function getCurrentTime (data) {
+  return new Promise(function(reslove,reject){
+    Request.get('/api/currentTime', {
+      params: data
+    }).then(res => {
+      reslove(res.data)
+    })
+  })
+}

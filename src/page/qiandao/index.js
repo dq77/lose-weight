@@ -12,7 +12,7 @@ class Qiandao extends React.Component {
       today: '',
       week: '',
       mobile: '',
-      groupCode: '',
+      groupId: '',
       nickname: '',
       height: '',
       targetWeight: '',
@@ -31,7 +31,7 @@ class Qiandao extends React.Component {
         const info = JSON.parse(qiandaoInfo)
         this.setState({
           mobile: info.mobile,
-          groupCode: info.groupCode,
+          groupId: info.groupId,
           nickname: info.nickname,
           height: info.height,
           targetWeight: info.targetWeight,
@@ -52,7 +52,7 @@ class Qiandao extends React.Component {
   }
 
   changemobile = (mobile) => { this.setState({ mobile: mobile.replace(/\s*/g,"") }) }
-  changegroupCode = (groupCode) => { this.setState({ groupCode: groupCode }) }
+  changegroupId = (groupId) => { this.setState({ groupId: groupId }) }
   changenickname = (nickname) => { this.setState({ nickname: nickname }) }
   changeheight = (height) => { this.setState({ height: height }) }
   changetargetWeight = (targetWeight) => { this.setState({ targetWeight: targetWeight }) }
@@ -61,7 +61,7 @@ class Qiandao extends React.Component {
   changetodayWeight = (todayWeight) => { this.setState({ todayWeight: todayWeight }) }
   validate = () => {
     if (!this.state.mobile) { return '请输入手机号' }
-    if (!this.state.groupCode) { return '请输入群号' }
+    if (!this.state.groupId) { return '请输入群号' }
     if (!this.state.nickname) { return '请输入昵称' }
     if (!this.state.height) { return '请输入身高' }
     if (!this.state.targetWeight) { return '请输入目标体重' }
@@ -78,7 +78,7 @@ class Qiandao extends React.Component {
     }
     const param = {
       mobile: this.state.mobile,
-      groupCode: this.state.groupCode,
+      groupId: this.state.groupId,
       nickname: this.state.nickname,
       height: this.state.height,
       targetWeight: this.state.targetWeight,
@@ -99,10 +99,10 @@ class Qiandao extends React.Component {
     })
   }
   toPaper = () => {
-    this.props.history.push({ pathname: '/weekList/12345' });
+    this.props.history.push({ pathname: `/weekList/${this.state.groupId}` });
   }
   render () {
-    const { today, week, mobile, groupCode, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
+    const { today, week, mobile, groupId, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
     return (
       <div className="qiandao-page">
         <div className="top-info">
@@ -111,7 +111,7 @@ class Qiandao extends React.Component {
         <div className="form-area">
           <List>
             <InputItem labelNumber={6} onChange={this.changemobile} type="phone" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
-            <InputItem labelNumber={6} onChange={this.changegroupCode} type="digit" value={groupCode} placeholder="请输入群号">群号</InputItem>
+            <InputItem labelNumber={6} onChange={this.changegroupId} type="digit" value={groupId} placeholder="请输入群号">群号</InputItem>
             <InputItem labelNumber={6} onChange={this.changenickname} value={nickname} placeholder="请输入昵称">昵称</InputItem>
             <InputItem labelNumber={6} onChange={this.changeheight} type="digit" value={height} placeholder="请输入身高" extra="cm">身高</InputItem>
             <InputItem labelNumber={6} onChange={this.changetargetWeight} type="digit" value={targetWeight} placeholder="请输入目标体重" extra="kg">目标体重</InputItem>
