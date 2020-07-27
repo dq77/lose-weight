@@ -1,3 +1,9 @@
+/*
+ * @Author: 刁琪
+ * @Date: 2019-09-10 17:38:55
+ * @LastEditors: 刁琪
+ * @LastEditTime: 2020-07-27 17:20:01
+ */ 
 /* eslint-disable react/jsx-no-bind */
 import './index.scss'
 import React from 'react'

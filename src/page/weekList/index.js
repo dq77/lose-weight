@@ -1,3 +1,9 @@
+/*
+ * @Author: 刁琪
+ * @Date: 2020-07-23 20:00:20
+ * @LastEditors: 刁琪
+ * @LastEditTime: 2020-07-27 17:20:30
+ */ 
 import './index.scss'
 import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';

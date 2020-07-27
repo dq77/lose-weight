@@ -1,6 +1,11 @@
-// format-date.js 
+/*
+ * @Author: 刁琪
+ * @Date: 2020-07-23 14:45:53
+ * @LastEditors: 刁琪
+ * @LastEditTime: 2020-07-27 17:19:34
+ */ 
 
-// Auther By diaoqi
+
 
 /*  将日期格式化的插件，由Date类型的对象调用
  *  var date1 = new Date("sth").format("yyyy-MM-dd");

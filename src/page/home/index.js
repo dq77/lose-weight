@@ -1,3 +1,9 @@
+/*
+ * @Author: 刁琪
+ * @Date: 2019-09-10 16:31:17
+ * @LastEditors: 刁琪
+ * @LastEditTime: 2020-07-27 17:09:02
+ */ 
 import './index.scss'
 import React from 'react'
 import Banner from '../../components/banner/index'
