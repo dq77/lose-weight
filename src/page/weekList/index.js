@@ -1,13 +1,13 @@
 /*
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
- * @LastEditors: 刁琪
- * @LastEditTime: 2020-07-27 17:20:30
+ * @LastEditors: わからないよう
+ * @LastEditTime: 2020-08-17 12:42:23
  */ 
 import './index.scss'
 import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
-import { getCurrentTime } from '../../api/qiandao';
+import { getCurrentTime, getWeekList } from '../../api/qiandao';
 import ReactEcharts from 'echarts-for-react';
 
 class WeekList extends React.Component {
@@ -16,7 +16,7 @@ class WeekList extends React.Component {
     this.state = {
       yemianId: '',
       week: '', // 当前周数
-      qunList: [],
+      weekGroupDatas: [],
       activeItem: {}
     }
   }
@@ -42,26 +42,39 @@ class WeekList extends React.Component {
   }
 
   getList = () => {
-    this.setState({
-      qunList: [
-        { id: 1, nickname: 'diaoqi', height: '174', week: ['80', '79', '80', '79', '80', '79', '78'], zhoujian: '2', yuejian: '15', zhoubiao: '70', zongbiao: '60', rubiao: '80' },
-        { id: 2, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-        { id: 3, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 4, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 5, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 12, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-        { id: 13, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 14, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 15, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 22, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-        { id: 23, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 24, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 25, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 32, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-        { id: 33, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 34, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-        { id: 35, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-      ]
+    const params = {
+      groupId: this.state.yemianId,
+      week: this.state.week,
+    }
+    getWeekList(params).then(res => {
+      if (res.code === '200') {
+        console.log(res.data.weekGroupDatas);
+        this.setState({
+          weekGroupDatas: 
+          // res.data.weekGroupDatas
+          [
+            { id: 1, nickname: 'diaoqi', height: '174', week: ['80', '79', '80', '79', '80', '79', '78'], zhoujian: '2', yuejian: '15', zhoubiao: '70', zongbiao: '60', rubiao: '80' },
+            { id: 2, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
+            { id: 3, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 4, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 5, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 12, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
+            { id: 13, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 14, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 15, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 22, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
+            { id: 23, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 24, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 25, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 32, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
+            { id: 33, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 34, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+            { id: 35, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
+          ]
+        })
+      } else {
+        Toast.fail(res.msg, 2);
+      }
     })
   }
   topClick = () => {
@@ -123,7 +136,7 @@ class WeekList extends React.Component {
   }
 
   render () {
-    const { qunList, activeItem } = this.state
+    const { weekGroupDatas, activeItem } = this.state
     return (
       <div className="weeklist-page">
         <div className="top-info" onClick={this.topClick}>
@@ -154,7 +167,7 @@ class WeekList extends React.Component {
           <div className={`tbody-area ${!!activeItem.week}`}>
             <table className="list-table" border="1" cellSpacing="0">
               <tbody>
-                { qunList.map( item => (
+                { weekGroupDatas.map( item => (
                   <tr key={item.id} onClick={() => {this.clickLine(item)}} className={item.id === activeItem.id ? 'active' : ''}>
                     <td className="w70">{item.nickname}</td>
                     <td className="w35">{item.height}</td>
