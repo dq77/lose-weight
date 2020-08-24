@@ -2,8 +2,8 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-17 12:42:23
- */ 
+ * @LastEditTime: 2020-08-24 14:50:25
+ */
 import './index.scss'
 import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
@@ -14,7 +14,8 @@ class WeekList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yemianId: '',
+      groupId: '',
+      groupName: '',
       week: '', // 当前周数
       weekGroupDatas: [],
       activeItem: {}
@@ -23,14 +24,14 @@ class WeekList extends React.Component {
 
 
   componentDidMount() {
-    document.title='统计列表'
+    document.title = '统计列表'
     this.getWeek()
   }
   getWeek = () => {
     getCurrentTime().then(res => {
       if (res.code === '200') {
         this.setState({
-          yemianId: this.props.match.params.id,
+          groupId: this.props.match.params.id,
           week: res.data.week
         }, () => {
           this.getList()
@@ -43,34 +44,15 @@ class WeekList extends React.Component {
 
   getList = () => {
     const params = {
-      groupId: this.state.yemianId,
+      groupId: this.state.groupId,
       week: this.state.week,
+      year: new Date().getFullYear()
     }
     getWeekList(params).then(res => {
       if (res.code === '200') {
-        console.log(res.data.weekGroupDatas);
         this.setState({
-          weekGroupDatas: 
-          // res.data.weekGroupDatas
-          [
-            { id: 1, nickname: 'diaoqi', height: '174', week: ['80', '79', '80', '79', '80', '79', '78'], zhoujian: '2', yuejian: '15', zhoubiao: '70', zongbiao: '60', rubiao: '80' },
-            { id: 2, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-            { id: 3, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 4, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 5, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 12, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-            { id: 13, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 14, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 15, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 22, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-            { id: 23, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 24, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 25, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 32, nickname: '可爱的咖啡屋', height: '160', week: ['66', '66', '65', '65', '66', '63', '65'], zhoujian: '1', yuejian: '-14', zhoubiao: '55', zongbiao: '60', rubiao: '64' },
-            { id: 33, nickname: '哈哈', height: '165', week: ['98', '99', '100', '100', '95', '97', '94'], zhoujian: '4', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 34, nickname: '哈哈哈', height: '166', week: ['93', '93', '94.54', '100', '94', '96', '91'], zhoujian: '-3', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-            { id: 35, nickname: '哈哈哈哈', height: '167', week: ['95', '95', '92', '102', '93', '97', '98'], zhoujian: '0', yuejian: '28', zhoubiao: '90', zongbiao: '70', rubiao: '120' },
-          ]
+          weekGroupDatas: res.data.groupMembers,
+          groupName: res.data.groupName
         })
       } else {
         Toast.fail(res.msg, 2);
@@ -83,18 +65,31 @@ class WeekList extends React.Component {
     })
   }
   clickLine = (item) => {
-    this.setState({
-      activeItem: item
-    })
+    if (this.state.activeItem.mobile === item.mobile) {
+      this.setState({
+        activeItem: {}
+      })
+    } else {
+      this.setState({
+        activeItem: item
+      })
+    }
   }
-  getColorByData = (item, index) => {
-    const nowData = item.week[index]-0
-    const lastData = item.week[index-1]-0
+  getColorByData = (item, row, index) => {
+    const rowList = row.map(one => { return one.dayWeight > 0 ? one.dayWeight : null })
+    let lastWeight = null
+    for (let i = index-1;i>=0;i--) {
+      if (!lastWeight) {
+        lastWeight = rowList[i]
+      }
+    }
     let className = 'w35'
-    if (lastData > nowData) {
-      className += ' green'
-    } else if (lastData < nowData) {
-      className += ' yellow'
+    if (lastWeight && item.dayWeight > 0) {
+      if (item.dayWeight < lastWeight) {
+        className += ' green'
+      } else {
+        className += ' yellow'
+      }
     }
     return className
   }
@@ -102,45 +97,48 @@ class WeekList extends React.Component {
     const item = this.state.activeItem
     return {
       title: {
-          text: item.nickname,
-          subtext: `身高：${item.height} 　 周目标：${item.zhoubiao} 　 总目标：${item.zongbiao} `,
-          left: 'center'
+        text: item.nickname,
+        subtext: `身高：${item.height} 　 周目标：${item.weekTargetWeight<0?'-':item.weekTargetWeight} 　 总目标：${item.targetWeight} `,
+        left: 'center'
       },
       xAxis: {
-          type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        type: 'category',
+        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
       },
       yAxis: {
-          type: 'value',
-          min: function (value) {
-            return value.min - 6;
-          },
-          max: function (value) {
-            return value.max + 6;
-          }
+        type: 'value',
+        min: function (value) {
+          return value.min - 6;
+        },
+        max: function (value) {
+          return value.max + 6;
+        }
       },
       tooltip: {
-          trigger: 'axis'
+        trigger: 'axis'
       },
       series: [{
-        data: item.week,
+        data: item.weights.map(item => {
+          return item.dayWeight > 0 ? item.dayWeight : null
+        }),
         type: 'line',
+        connectNulls: true,
         itemStyle: {
-          color:'#E6A23C',
+          color: '#E6A23C',
         },
-        lineStyle : {
-          color:'#E6A23C'
+        lineStyle: {
+          color: '#E6A23C'
         }
       }]
     }
   }
 
-  render () {
-    const { weekGroupDatas, activeItem } = this.state
+  render() {
+    const { weekGroupDatas, activeItem, groupName, groupId } = this.state
     return (
       <div className="weeklist-page">
         <div className="top-info" onClick={this.topClick}>
-          群名： 要么瘦要么死 （群id：123456）
+          群名： {groupName} （群id：{groupId}）
         </div>
         <div className="table-area">
           <div className="thead-area">
@@ -164,31 +162,33 @@ class WeekList extends React.Component {
               </thead>
             </table>
           </div>
-          <div className={`tbody-area ${!!activeItem.week}`}>
+          <div className={`tbody-area ${!!activeItem.weights}`}>
             <table className="list-table" border="1" cellSpacing="0">
               <tbody>
-                { weekGroupDatas.map( item => (
-                  <tr key={item.id} onClick={() => {this.clickLine(item)}} className={item.id === activeItem.id ? 'active' : ''}>
-                    <td className="w70">{item.nickname}</td>
+                {weekGroupDatas.map(item => (
+                  <tr key={item.mobile} onClick={() => { this.clickLine(item) }} className={item.mobile === activeItem.mobile ? 'active' : ''}>
+                    <td className="w70 nickname">{item.nickname}</td>
                     <td className="w35">{item.height}</td>
-                    { item.week.map((one, index) => (
-                      <td key={index} className={this.getColorByData(item, index)}>
-                        {one}
+                    {item.weights.map((one, index) => (
+                      <td key={index} className={this.getColorByData(one, item.weights, index)}>
+                        {one.dayWeight < 0 ? '-' : one.dayWeight}
                       </td>
                     ))}
-                    <td className={item.zhoujian>0 ? 'green w35' : 'yellow w35'}>{item.zhoujian}</td>
-                    <td className={item.yuejian>0 ? 'green w35' : 'yellow w35'}>{item.yuejian}</td>
-                    <td className="w35">{item.zhoubiao}</td>
-                    <td className="w35">{item.zongbiao}</td>
-                    <td className="w35">{item.rubiao}</td>
+                    <td className={item.weekReduce > 0 ? 'green w35' : 'yellow w35'}>{item.weekReduce}</td>
+                    <td className={item.monthReduces[0].monthReduces > 0 ? 'green w35' : 'yellow w35'}>{item.monthReduces[0].monthReduce}</td>
+                    <td className="w35">{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
+                    <td className="w35">{item.targetWeight}</td>
+                    <td className="w35">{item.initWeight}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        <div />
-        { activeItem.week && (
+        {!activeItem.weights && (
+          <div className="info-tip">(点击昵称可查看详细数据)</div>
+        )}
+        {activeItem.weights && (
           <div>
             <ReactEcharts option={this.getEchartOption()} />
           </div>

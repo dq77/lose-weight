@@ -1,3 +1,8 @@
+/*
+ * @Author: 刁琪
+ * @Date: 2019-09-10 16:31:17
+ * @LastEditors: わからないよう
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

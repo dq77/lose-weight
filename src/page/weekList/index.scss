@@ -1,8 +1,8 @@
 /*
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:23
- * @LastEditors: 刁琪
- * @LastEditTime: 2020-07-27 17:08:36
+ * @LastEditors: わからないよう
+ * @LastEditTime: 2020-08-24 14:48:32
  */ 
 .weeklist-page{
   width: 100%;
@@ -82,7 +82,15 @@
       .green{
         background-color: #f0f9eb;
       }
+      .nickname{
+        text-decoration:underline
+      }
     }
+  }
+  .info-tip{
+    margin-left: 14px;
+    font-size: 14px;
+    color: #606266;
   }
   .sign-area{
     margin-top: 50px;

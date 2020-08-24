@@ -1,8 +1,8 @@
 /*
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
- * @LastEditors: 刁琪
- * @LastEditTime: 2020-07-27 17:08:18
+ * @LastEditors: わからないよう
+ * @LastEditTime: 2020-08-24 14:41:04
  */ 
 import './index.scss'
 import React from 'react'
@@ -33,20 +33,24 @@ class Qiandao extends React.Component {
     document.title='每日打卡'
     const qiandaoInfo = localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
-      try {
-        const info = JSON.parse(qiandaoInfo)
-        this.setState({
-          mobile: info.mobile,
-          groupId: info.groupId,
-          nickname: info.nickname,
-          height: info.height,
-          targetWeight: info.targetWeight,
-          monthTargetWeight: info.monthTargetWeight,
-          weekTargetWeight: info.weekTargetWeight,
+      const info = JSON.parse(qiandaoInfo)
+      const signFlag = localStorage.getItem('signFlag')
+      if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
+        // 今日已经打过卡了 直接去列表页
+        this.setState({ groupId: info.groupId }, () => {
+          this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
+          
         })
-      } catch(e) {
-        localStorage.removeItem('qiandaoInfo')
       }
+      this.setState({
+        mobile: info.mobile,
+        groupId: info.groupId,
+        nickname: info.nickname,
+        height: info.height,
+        targetWeight: info.targetWeight,
+        monthTargetWeight: info.monthTargetWeight,
+        weekTargetWeight: info.weekTargetWeight,
+      })
     }
     this.getDay()
   }
@@ -95,6 +99,7 @@ class Qiandao extends React.Component {
     writeInfo(param).then(res => {
       if (res.code === '200') {
         localStorage.setItem('qiandaoInfo', JSON.stringify(param));
+        localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
           { text: '返回', onPress: () => {}},
           { text: '查看周报', onPress: () => this.toPaper() },
