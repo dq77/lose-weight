@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-24 14:50:25
+ * @LastEditTime: 2020-08-24 16:29:50
  */
 import './index.scss'
 import React from 'react'
@@ -18,7 +18,8 @@ class WeekList extends React.Component {
       groupName: '',
       week: '', // 当前周数
       weekGroupDatas: [],
-      activeItem: {}
+      activeItem: {},
+      loading: true
     }
   }
 
@@ -52,7 +53,8 @@ class WeekList extends React.Component {
       if (res.code === '200') {
         this.setState({
           weekGroupDatas: res.data.groupMembers,
-          groupName: res.data.groupName
+          groupName: res.data.groupName,
+          loading: false
         })
       } else {
         Toast.fail(res.msg, 2);
@@ -134,7 +136,7 @@ class WeekList extends React.Component {
   }
 
   render() {
-    const { weekGroupDatas, activeItem, groupName, groupId } = this.state
+    const { weekGroupDatas, activeItem, groupName, groupId, loading } = this.state
     return (
       <div className="weeklist-page">
         <div className="top-info" onClick={this.topClick}>
@@ -181,6 +183,7 @@ class WeekList extends React.Component {
                     <td className="w35">{item.initWeight}</td>
                   </tr>
                 ))}
+                {loading && (<tr><td>加载中</td></tr>)}
               </tbody>
             </table>
           </div>

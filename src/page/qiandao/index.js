@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-24 14:41:04
+ * @LastEditTime: 2020-08-24 16:21:21
  */ 
 import './index.scss'
 import React from 'react'
@@ -38,8 +38,7 @@ class Qiandao extends React.Component {
       if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
         // 今日已经打过卡了 直接去列表页
         this.setState({ groupId: info.groupId }, () => {
-          this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
-          
+          this.toPaper()
         })
       }
       this.setState({
@@ -115,7 +114,7 @@ class Qiandao extends React.Component {
     }
   }
   toPaper = () => {
-    this.props.history.push({ pathname: `/weekList/${this.state.groupId}` });
+    this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
   }
   render () {
     const { today, week, mobile, groupId, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
