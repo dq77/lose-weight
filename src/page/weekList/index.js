@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-25 14:42:56
+ * @LastEditTime: 2020-08-25 16:42:21
  */
 import './index.scss'
 import React from 'react'
@@ -140,7 +140,7 @@ class WeekList extends React.Component {
     return (
       <div className="weeklist-page">
         <div className="top-info" onClick={this.topClick}>
-          群名： {groupName} （群id：{groupId}）
+          群名： {groupName} （群号：{groupId}）
         </div>
         <div className="table-area">
           <div className="thead-area">
