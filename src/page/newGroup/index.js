@@ -2,12 +2,13 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-26 19:42:50
+ * @LastEditTime: 2020-08-26 20:21:59
  */ 
 import './index.scss'
 import React from 'react'
 import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
+import copy from 'copy-to-clipboard';
 import { creatGroup } from '../../api/qiandao';
 
 class Group extends React.Component {
@@ -60,7 +61,8 @@ class Group extends React.Component {
         Modal.alert('创建成功', (
           <div>
             <div>恭喜您，群创建成功</div>
-            <div style={{ textAlign: 'left', paddingLeft: 40}} >　群号：{res.data.groupId}</div>
+            <div style={{ textAlign: 'left', paddingLeft: 40}} >　群号：{res.data.groupId}　　
+            <span style={{ color: '#108ee9', textDecoration: 'underline', touchAction:'none'}} onClick={() => {this.copyText(res.data.groupId)}}>复制</span></div>
             <div style={{ textAlign: 'left', paddingLeft: 40}}>群名称：{this.state.groupName}</div>
           </div>
         ), [{ text: '返回', onPress: () => {}}, { text: '前往打卡', onPress: () => this.toSign() }])
@@ -68,6 +70,10 @@ class Group extends React.Component {
         Toast.fail(res.msg, 2);
       }
     })
+  }
+  copyText = (text) => {
+    copy(text);
+    Toast.success('复制成功', 1);
   }
   toSign = () => {
     this.props.history.push({ pathname: `/qiandao` });
