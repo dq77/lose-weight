@@ -1,8 +1,8 @@
 /*
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
- * @LastEditors: 刁琪
- * @LastEditTime: 2020-07-27 17:08:27
+ * @LastEditors: わからないよう
+ * @LastEditTime: 2020-08-26 18:44:44
  */ 
 .qiandao-page{
   .top-info{
@@ -18,5 +18,13 @@
   .sign-area{
     margin-top: 50px;
     padding: 20px;
+  }
+  .creat{
+    text-align: right;
+    .creat-btn{
+      margin-right: 20px;
+      text-decoration: underline;
+      color: #AAA;
+    }
   }
 }

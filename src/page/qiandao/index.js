@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-24 16:21:21
+ * @LastEditTime: 2020-08-26 19:43:51
  */ 
 import './index.scss'
 import React from 'react'
@@ -101,7 +101,7 @@ class Qiandao extends React.Component {
         localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
           { text: '返回', onPress: () => {}},
-          { text: '查看周报', onPress: () => this.toPaper() },
+          { text: '查看周报', onPress: () => this.toPaper() }
         ])
       } else {
         Toast.fail(res.msg, 2);
@@ -115,6 +115,9 @@ class Qiandao extends React.Component {
   }
   toPaper = () => {
     this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
+  }
+  toCreat = () => {
+    this.props.history.push({ pathname: `/newGroup` });
   }
   render () {
     const { today, week, mobile, groupId, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
@@ -137,6 +140,9 @@ class Qiandao extends React.Component {
         </div>
         <div className="sign-area">
           <Button type="primary" onClick={this.signIn}>打卡</Button>
+        </div>
+        <div className="creat">
+          {/* <span className="creat-btn" onClick={this.toCreat}>创建群</span> */}
         </div>
       </div>
     )

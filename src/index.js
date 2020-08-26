@@ -9,8 +9,7 @@ import './index.css';
 import App from './App';
 import Qiandao from './page/qiandao/index';
 import WeekList from './page/weekList/index';
-// import XsyJianLi from './page/xsyJianLi/index';
-// import DqJianLi from './page/dqJianLi/index';
+import NewGroup from './page/newGroup/index';
 import {HashRouter, Route} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
@@ -19,6 +18,7 @@ ReactDOM.render(
         <Route exact path="/" component={ App } />
         <Route path="/qiandao" component={ Qiandao } />
         <Route path="/weekList/:id" component={ WeekList } />
+        <Route path="/newGroup" component={ NewGroup } />
     </HashRouter>
     , document.getElementById('root'));
 
