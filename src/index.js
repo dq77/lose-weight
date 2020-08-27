@@ -15,12 +15,12 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <HashRouter>
-    <Route exact path="/" render={() => <Redirect to="/index" push />} />
-    <Route path="/index" component={ App } />
-    <Route path="/user" component={ App } />
-    <Route path="/qiandao" component={ Qiandao } />
-    <Route path="/weekList/:id" component={ WeekList } />
-    <Route path="/newGroup" component={ NewGroup } />
+    <Route exact path='/' render={() => <Redirect to='/index' push />} />
+    <Route path='/index' component={ App } />
+    <Route path='/user' component={ App } />
+    <Route path='/qiandao' component={ Qiandao } />
+    <Route path='/weekList/:id' component={ WeekList } />
+    <Route path='/newGroup' component={ NewGroup } />
   </HashRouter>
   , document.getElementById('root'));
 

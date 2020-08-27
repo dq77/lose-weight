@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-27 09:58:33
+ * @LastEditTime: 2020-08-27 17:25:37
  */ 
 import './index.scss'
 import React from 'react'
@@ -126,27 +126,27 @@ class Qiandao extends React.Component {
   render () {
     const { today, week, mobile, groupId, nickname, height, targetWeight, monthTargetWeight, weekTargetWeight, todayWeight } = this.state
     return (
-      <div className="qiandao-page">
-        <div className="top-info">
-          <span onClick={this.show}>{today}</span> <span className="week">{week}</span>
+      <div className='qiandao-page'>
+        <div className='top-info'>
+          <span onClick={this.show}>{today}</span> <span className='week'>{week}</span>
         </div>
-        <div className="form-area">
+        <div className='form-area'>
           <List>
-            <InputItem labelNumber={6} onChange={this.changemobile} type="phone" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
-            <InputItem labelNumber={6} onChange={this.changegroupId} type="digit" value={groupId} placeholder="请输入群号">群号</InputItem>
-            <InputItem labelNumber={6} onChange={this.changenickname} value={nickname} placeholder="请输入昵称">昵称</InputItem>
-            <InputItem labelNumber={6} onChange={this.changeheight} type="digit" value={height} placeholder="请输入身高" extra="cm">身高</InputItem>
-            <InputItem labelNumber={6} onChange={this.changetargetWeight} type="digit" value={targetWeight} placeholder="请输入目标体重" extra="kg">目标体重</InputItem>
-            <InputItem labelNumber={6} onChange={this.changemonthTargetWeight} type="digit" value={monthTargetWeight} placeholder="请输入月目标体重" extra="kg">月目标体重</InputItem>
-            <InputItem labelNumber={6} onChange={this.changeweekTargetWeight} type="digit" value={weekTargetWeight} placeholder="请输入周目标体重" extra="kg">周目标体重</InputItem>
-            <InputItem labelNumber={6} onChange={this.changetodayWeight} type="digit" value={todayWeight} placeholder="请输入今日体重" extra="kg" onKeyPress={this.handleEnterKey}>今日体重</InputItem>
+            <InputItem labelNumber={6} onChange={this.changemobile} type='phone' value={mobile} placeholder='请输入手机号'>手机号码</InputItem>
+            <InputItem labelNumber={6} onChange={this.changegroupId} type='digit' value={groupId} placeholder='请输入群号'>群号</InputItem>
+            <InputItem labelNumber={6} onChange={this.changenickname} value={nickname} placeholder='请输入昵称'>昵称</InputItem>
+            <InputItem labelNumber={6} onChange={this.changeheight} type='digit' value={height} placeholder='请输入身高' extra='cm'>身高</InputItem>
+            <InputItem labelNumber={6} onChange={this.changetargetWeight} type='digit' value={targetWeight} placeholder='请输入目标体重' extra='kg'>目标体重</InputItem>
+            <InputItem labelNumber={6} onChange={this.changemonthTargetWeight} type='digit' value={monthTargetWeight} placeholder='请输入月目标体重' extra='kg'>月目标体重</InputItem>
+            <InputItem labelNumber={6} onChange={this.changeweekTargetWeight} type='digit' value={weekTargetWeight} placeholder='请输入周目标体重' extra='kg'>周目标体重</InputItem>
+            <InputItem labelNumber={6} onChange={this.changetodayWeight} type='digit' value={todayWeight} placeholder='请输入今日体重' extra='kg' onKeyPress={this.handleEnterKey}>今日体重</InputItem>
           </List>
         </div>
-        <div className="sign-area">
-          <Button type="primary" onClick={this.signIn}>打卡</Button>
+        <div className='sign-area'>
+          <Button type='primary' onClick={this.signIn}>打卡</Button>
         </div>
-        <div className="creat">
-          <span className="creat-btn" onClick={this.toCreat}>创建群</span>
+        <div className='creat'>
+          <span className='creat-btn' onClick={this.toCreat}>创建群</span>
         </div>
       </div>
     )

@@ -1,8 +1,8 @@
 /*
  * @Author: 刁琪
  * @Date: 2019-09-10 16:31:17
- * @LastEditors: 刁琪
- * @LastEditTime: 2020-07-27 17:09:02
+ * @LastEditors: わからないよう
+ * @LastEditTime: 2020-08-27 14:26:14
  */ 
 import './index.scss'
 import React from 'react'
@@ -21,13 +21,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    // this.setState({
-    //   bannerList: [
-    //     {url: '/weekList', img: 'AiyWuByWklrrUDlFignR'},
-    //     {url: '/goods', img: 'TekJlZRVCjLFexlOCuWn'},
-    //     {url: '/goods', img: 'IJOtIlfsYdTyaDTRVrLI'},
-    //   ]
-    // })
+    document.title = '首页'
   }
 
 

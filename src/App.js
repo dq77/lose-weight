@@ -34,24 +34,25 @@ class App extends React.Component {
 
   
   render () {
+    const { selectedTab } = this.state
     return (
-      <div className="App">
-        <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white" >
-          <TabBar.Item title="首页" key="index"
-            icon={<img className="index-icon" src={indexIcon} alt="" />}
-            selectedIcon={<img className="index-icon" src={indexIconSelected} alt="" />}
-            selected={this.state.selectedTab === '/index'}
+      <div className='App'>
+        <TabBar unselectedTintColor='#949494' tintColor='#33A3F4' barTintColor='white' >
+          <TabBar.Item title='首页' key='index'
+            icon={<img className='index-icon' src={indexIcon} alt='' />}
+            selectedIcon={<img className='index-icon' src={indexIconSelected} alt='' />}
+            selected={selectedTab === '/index'}
             onPress={ () => {this.changeTab('index') }}
           >
-            <Index />
+            {selectedTab === '/index' && (<Index />)}
           </TabBar.Item>
-          <TabBar.Item title="我的" key="user"
-            icon={<img className="index-icon" src={userIcon} alt="" />}
-            selectedIcon={<img className="index-icon" src={userIconSelected} alt="" />}
-            selected={this.state.selectedTab === '/user'}
+          <TabBar.Item title='我的' key='user'
+            icon={<img className='index-icon' src={userIcon} alt='' />}
+            selectedIcon={<img className='index-icon' src={userIconSelected} alt='' />}
+            selected={selectedTab === '/user'}
             onPress={ () => {this.changeTab('user') }}
           >
-            <User />
+            {selectedTab === '/user' && (<User />)}
           </TabBar.Item>
         </TabBar>
       </div>
