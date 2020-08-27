@@ -1,26 +1,35 @@
+/*
+ * @Author: 刁琪
+ * @Date: 2019-09-10 16:31:17
+ * @LastEditors: わからないよう
+ */
 import React from 'react';
 import 'antd-mobile/dist/antd-mobile.css';
 import './App.scss';
 import { TabBar } from 'antd-mobile';
-import homeIcon from './lib/image/home/home-icon.png';
-import homeIconSelected from './lib/image/home/home-icon-selected.png';
-import userIcon from './lib/image/home/user-icon.png';
-import userIconSelected from './lib/image/home/user-icon-selected.png';
-import Home from './page/home/index.js';
+import indexIcon from './lib/image/index/index-icon.png';
+import indexIconSelected from './lib/image/index/index-icon-selected.png';
+import userIcon from './lib/image/index/user-icon.png';
+import userIconSelected from './lib/image/index/user-icon-selected.png';
+import Index from './page/index/index.js';
 import User from './page/user/index.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'home',
+      selectedTab: '/index',
     }
+  }
+  componentDidMount() {
+    console.log(this.props.match.path);
+    this.setState({
+      selectedTab: this.props.match.path,
+    });
   }
 
   changeTab = (tabName) => {
-    this.setState({
-      selectedTab: tabName,
-    });
+    this.props.history.push({ pathname: `/${tabName}` });
   }
 
   
@@ -28,18 +37,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white" >
-          <TabBar.Item title="首页" key="home"
-            icon={<img className="home-icon" src={homeIcon} alt="" />}
-            selectedIcon={<img className="home-icon" src={homeIconSelected} alt="" />}
-            selected={this.state.selectedTab === 'home'}
-            onPress={ () => {this.changeTab('home') }}
+          <TabBar.Item title="首页" key="index"
+            icon={<img className="index-icon" src={indexIcon} alt="" />}
+            selectedIcon={<img className="index-icon" src={indexIconSelected} alt="" />}
+            selected={this.state.selectedTab === '/index'}
+            onPress={ () => {this.changeTab('index') }}
           >
-            <Home />
+            <Index />
           </TabBar.Item>
           <TabBar.Item title="我的" key="user"
-            icon={<img className="home-icon" src={userIcon} alt="" />}
-            selectedIcon={<img className="home-icon" src={userIconSelected} alt="" />}
-            selected={this.state.selectedTab === 'user'}
+            icon={<img className="index-icon" src={userIcon} alt="" />}
+            selectedIcon={<img className="index-icon" src={userIconSelected} alt="" />}
+            selected={this.state.selectedTab === '/user'}
             onPress={ () => {this.changeTab('user') }}
           >
             <User />
