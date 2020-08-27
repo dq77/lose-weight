@@ -2,11 +2,11 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-27 10:54:35
+ * @LastEditTime: 2020-08-27 11:15:02
  */
 import './index.scss'
 import React from 'react'
-import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import { getCurrentTime, getWeekList } from '../../api/qiandao';
 import ReactEcharts from 'echarts-for-react';
 
