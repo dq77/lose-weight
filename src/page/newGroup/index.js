@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-26 20:21:59
+ * @LastEditTime: 2020-08-27 10:03:20
  */ 
 import './index.scss'
 import React from 'react'
@@ -17,7 +17,7 @@ class Group extends React.Component {
     this.state = {
       mobile: '',
       groupName: '',
-      groupMax: ''
+      groupSize: ''
     }
   }
 
@@ -28,13 +28,13 @@ class Group extends React.Component {
 
   changemobile = (mobile) => { this.setState({ mobile: mobile.replace(/\s*/g,"") }) }
   changegroupName = (groupName) => { this.setState({ groupName: groupName }) }
-  changegroupMax = (groupMax) => { this.setState({ groupMax: groupMax }) }
+  changegroupSize = (groupSize) => { this.setState({ groupSize: groupSize }) }
   validate = () => {
     if (!this.state.mobile) { return '请输入手机号' }
     if (!this.state.groupName) { return '请输入群名称' }
-    if (!this.state.groupMax) { return '请输入群容量' }
+    if (!this.state.groupSize) { return '请输入群容量' }
     if (this.state.mobile.length !== 11) { return '手机号格式不正确' }
-    if (this.state.groupMax > 200) { return '群最多支持200人' }
+    if (this.state.groupSize > 200) { return '群最多支持200人' }
     return 200
   }
   signIn = () => {
@@ -46,10 +46,7 @@ class Group extends React.Component {
     const param = {
       mobile: this.state.mobile,
       groupName: this.state.groupName,
-      groupMax: this.state.groupMax,
-      groupId: 1,
-      week: 35,
-      year: 2020
+      groupSize: this.state.groupSize
     }
     creatGroup(param).then(res => {
       if (res.code === '200') {
@@ -79,14 +76,14 @@ class Group extends React.Component {
     this.props.history.push({ pathname: `/qiandao` });
   }
   render () {
-    const { mobile, groupName, groupMax } = this.state
+    const { mobile, groupName, groupSize } = this.state
     return (
       <div className="creat-group-page">
         <div className="form-area">
           <List>
             <InputItem labelNumber={6} onChange={this.changemobile} type="phone" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
             <InputItem labelNumber={6} onChange={this.changegroupName} value={groupName} placeholder="请输入群名称">群名称</InputItem>
-            <InputItem labelNumber={6} onChange={this.changegroupMax} type="digit" value={groupMax} placeholder="请输入群最大人数" extra="人">群容量</InputItem>
+            <InputItem labelNumber={6} onChange={this.changegroupSize} type="digit" value={groupSize} placeholder="请输入群最大人数" extra="人">群容量</InputItem>
           </List>
         </div>
         <div className="sign-area">

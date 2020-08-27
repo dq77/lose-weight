@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-25 16:42:21
+ * @LastEditTime: 2020-08-27 09:57:20
  */
 import './index.scss'
 import React from 'react'
@@ -180,7 +180,7 @@ class WeekList extends React.Component {
                     <td className={`w46 ${item.weekReduce > 0 ? 'green' : ''} ${item.weekReduce < 0 ? 'yellow' : ''}`}>{item.weekReduce}</td>
                     <td className={`w46 ${item.monthReduces[0].monthReduce > 0 ? 'green' : ''} ${item.monthReduces[0].monthReduce < 0 ? 'yellow' : ''}`}>{item.monthReduces[0].monthReduce}</td>
                     <td className="w46">{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
-                    <td className="w46">{item.monthTargetWeight || '-'}</td>
+                    <td className="w46">{item.monthTargetWeights[0].monthTargetWeight || '-'}</td>
                     <td className="w46">{item.targetWeight}</td>
                     <td className="w46">{item.initWeight}</td>
                   </tr>

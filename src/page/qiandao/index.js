@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-26 19:43:51
+ * @LastEditTime: 2020-08-27 09:58:33
  */ 
 import './index.scss'
 import React from 'react'
@@ -33,23 +33,27 @@ class Qiandao extends React.Component {
     document.title='每日打卡'
     const qiandaoInfo = localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
-      const info = JSON.parse(qiandaoInfo)
-      const signFlag = localStorage.getItem('signFlag')
-      if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
-        // 今日已经打过卡了 直接去列表页
-        this.setState({ groupId: info.groupId }, () => {
-          this.toPaper()
+      try {
+        const info = JSON.parse(qiandaoInfo)
+        const signFlag = localStorage.getItem('signFlag')
+        if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
+          // 今日已经打过卡了 直接去列表页
+          this.setState({ groupId: info.groupId }, () => {
+            this.toPaper()
+          })
+        }
+        this.setState({
+          mobile: info.mobile,
+          groupId: info.groupId,
+          nickname: info.nickname,
+          height: info.height,
+          targetWeight: info.targetWeight,
+          monthTargetWeight: info.monthTargetWeight,
+          weekTargetWeight: info.weekTargetWeight,
         })
+      } catch(e) {
+        localStorage.removeItem('qiandaoInfo')
       }
-      this.setState({
-        mobile: info.mobile,
-        groupId: info.groupId,
-        nickname: info.nickname,
-        height: info.height,
-        targetWeight: info.targetWeight,
-        monthTargetWeight: info.monthTargetWeight,
-        weekTargetWeight: info.weekTargetWeight,
-      })
     }
     this.getDay()
   }
@@ -142,7 +146,7 @@ class Qiandao extends React.Component {
           <Button type="primary" onClick={this.signIn}>打卡</Button>
         </div>
         <div className="creat">
-          {/* <span className="creat-btn" onClick={this.toCreat}>创建群</span> */}
+          <span className="creat-btn" onClick={this.toCreat}>创建群</span>
         </div>
       </div>
     )

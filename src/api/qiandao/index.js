@@ -42,7 +42,7 @@ export function getCurrentTime (data) {
 // 创建群
 export function creatGroup (data) {
   return new Promise(function(reslove,reject){
-    Request.get('/api/reduce/groupDataWeek', {
+    Request.get('/api/generateGroup', {
       params: data
     }).then(res => {
       reslove(res.data)
