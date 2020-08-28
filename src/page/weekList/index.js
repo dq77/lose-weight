@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-27 11:15:02
+ * @LastEditTime: 2020-08-28 17:36:26
  */
 import './index.scss'
 import React from 'react'
@@ -138,40 +138,40 @@ class WeekList extends React.Component {
   render() {
     const { weekGroupDatas, activeItem, groupName, groupId, loading } = this.state
     return (
-      <div className="weeklist-page">
-        <div className="top-info" onClick={this.topClick}>
+      <div className='weeklist-page'>
+        <div className='top-info' onClick={this.topClick}>
           群名： {groupName} （{groupId}）
         </div>
-        <div className="table-area">
-          <div className="thead-area">
-            <table className="list-table" border="1" cellSpacing="0">
+        <div className='table-area'>
+          <div className='thead-area'>
+            <table className='list-table' border='1' cellSpacing='0'>
               <thead>
                 <tr>
-                  <td className="w70">昵称</td>
-                  <td className="w46">身高</td>
-                  <td className="w46">一</td>
-                  <td className="w46">二</td>
-                  <td className="w46">三</td>
-                  <td className="w46">四</td>
-                  <td className="w46">五</td>
-                  <td className="w46">六</td>
-                  <td className="w46">日</td>
-                  <td className="w46">周减</td>
-                  <td className="w46">月减</td>
-                  <td className="w46">周目标</td>
-                  <td className="w46">月目标</td>
-                  <td className="w46">总目标</td>
-                  <td className="w46">入表</td></tr>
+                  <td className='w70'>昵称</td>
+                  <td className='w46'>身高</td>
+                  <td className='w46'>一</td>
+                  <td className='w46'>二</td>
+                  <td className='w46'>三</td>
+                  <td className='w46'>四</td>
+                  <td className='w46'>五</td>
+                  <td className='w46'>六</td>
+                  <td className='w46'>日</td>
+                  <td className='w46'>周减</td>
+                  <td className='w46'>月减</td>
+                  <td className='w46'>周目标</td>
+                  <td className='w46'>月目标</td>
+                  <td className='w46'>总目标</td>
+                  <td className='w46'>入表</td></tr>
               </thead>
             </table>
           </div>
           <div className={`tbody-area ${!!activeItem.weights}`}>
-            <table className="list-table" border="1" cellSpacing="0">
+            <table className='list-table' border='1' cellSpacing='0'>
               <tbody>
                 {weekGroupDatas.map(item => (
                   <tr key={item.mobile} onClick={() => { this.clickLine(item) }} className={item.mobile === activeItem.mobile ? 'active' : ''}>
-                    <td className="w70 nickname">{item.nickname}</td>
-                    <td className="w46">{item.height}</td>
+                    <td className='w70 nickname'>{item.nickname}</td>
+                    <td className='w46'>{item.height}</td>
                     {item.weights.map((one, index) => (
                       <td key={index} className={this.getColorByData(one, item.weights, index)}>
                         {one.dayWeight < 0 ? '-' : one.dayWeight}
@@ -179,10 +179,10 @@ class WeekList extends React.Component {
                     ))}
                     <td className={`w46 ${item.weekReduce > 0 ? 'green' : ''} ${item.weekReduce < 0 ? 'yellow' : ''}`}>{item.weekReduce}</td>
                     <td className={`w46 ${item.monthReduces[0].monthReduce > 0 ? 'green' : ''} ${item.monthReduces[0].monthReduce < 0 ? 'yellow' : ''}`}>{item.monthReduces[0].monthReduce}</td>
-                    <td className="w46">{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
-                    <td className="w46">{item.monthTargetWeights[0].monthTargetWeight || '-'}</td>
-                    <td className="w46">{item.targetWeight}</td>
-                    <td className="w46">{item.initWeight}</td>
+                    <td className='w46'>{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
+                    <td className='w46'>{item.monthTargetWeights[0].monthTargetWeight || '-'}</td>
+                    <td className='w46'>{item.targetWeight}</td>
+                    <td className='w46'>{item.initWeight}</td>
                   </tr>
                 ))}
                 {loading && (<tr><td>加载中</td></tr>)}
@@ -191,7 +191,7 @@ class WeekList extends React.Component {
           </div>
         </div>
         {!activeItem.weights && (
-          <div className="info-tip">(点击昵称可查看详细数据)</div>
+          <div className='info-tip'>(点击昵称可查看详细数据)</div>
         )}
         {activeItem.weights && (
           <div>
