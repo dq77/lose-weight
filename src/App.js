@@ -6,12 +6,12 @@
 import React from 'react';
 import 'antd-mobile/dist/antd-mobile.css';
 import './App.scss';
-import { TabBar } from 'antd-mobile';
-import indexIcon from './lib/image/index/index-icon.png';
-import indexIconSelected from './lib/image/index/index-icon-selected.png';
-import userIcon from './lib/image/index/user-icon.png';
-import userIconSelected from './lib/image/index/user-icon-selected.png';
-import Index from './page/index/index.js';
+// import { TabBar } from 'antd-mobile';
+// import indexIcon from './lib/image/index/index-icon.png';
+// import indexIconSelected from './lib/image/index/index-icon-selected.png';
+// import userIcon from './lib/image/index/user-icon.png';
+// import userIconSelected from './lib/image/index/user-icon-selected.png';
+// import Index from './page/index/index.js';
 import User from './page/user/index.js';
 
 class App extends React.Component {
@@ -37,7 +37,7 @@ class App extends React.Component {
     const { selectedTab } = this.state
     return (
       <div className='App'>
-        <TabBar unselectedTintColor='#949494' tintColor='#33A3F4' barTintColor='white' >
+        {/* <TabBar unselectedTintColor='#949494' tintColor='#33A3F4' barTintColor='white' >
           <TabBar.Item title='首页' key='index'
             icon={<img className='index-icon' src={indexIcon} alt='' />}
             selectedIcon={<img className='index-icon' src={indexIconSelected} alt='' />}
@@ -51,10 +51,10 @@ class App extends React.Component {
             selectedIcon={<img className='index-icon' src={userIconSelected} alt='' />}
             selected={selectedTab === '/user'}
             onPress={ () => {this.changeTab('user') }}
-          >
+          > */}
             {selectedTab === '/user' && (<User />)}
-          </TabBar.Item>
-        </TabBar>
+          {/* </TabBar.Item>
+        </TabBar> */}
       </div>
     );
   }

@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 16:31:17
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-28 12:08:17
+ * @LastEditTime: 2020-08-28 16:09:43
  */ 
 import React from 'react'
 import { Toast } from 'antd-mobile';
@@ -62,6 +62,10 @@ class User extends React.Component {
     } else {
       Toast.info('请先完成今日份的打卡', 2);
     }
+  }
+
+  toHistory = () => {
+    this.props.history.push({ pathname: `/monthHistory` });
   }
 
   toNew = () => {
@@ -129,14 +133,18 @@ class User extends React.Component {
             <img className='menu-img' src={menuPic} alt='right' />
           </div>
           <div className={`item ${touchItem === 2}`} onClick={this.toList} onTouchStart={() => { this.touch(2) }} onTouchEnd={ this.touchStop }>
-            <div className='text'>统计列表</div>
+            <div className='text'>群组制表{qiandaoInfo.groupId && (<div className='infor'>({qiandaoInfo.groupId})</div>)}</div>
             <img className='menu-img' src={menuPic} alt='right' />
           </div>
-          <div className={`item ${touchItem === 3}`} onClick={this.toNew} onTouchStart={() => { this.touch(3) }} onTouchEnd={ this.touchStop }>
+          <div className={`item ${touchItem === 3}`} onClick={this.toHistory} onTouchStart={() => { this.touch(3) }} onTouchEnd={ this.touchStop }>
+            <div className='text'>打卡记录</div>
+            <img className='menu-img' src={menuPic} alt='right' />
+          </div>
+          <div className={`item ${touchItem === 4}`} onClick={this.toNew} onTouchStart={() => { this.touch(4) }} onTouchEnd={ this.touchStop }>
             <div className='text'>创建新群 </div>
             <img className='menu-img' src={menuPic} alt='right' />
           </div>
-          <div className={`item ${touchItem === 4}`} onClick={this.toServe} onTouchStart={() => { this.touch(4) }} onTouchEnd={ this.touchStop }>
+          <div className={`item ${touchItem === 5}`} onClick={this.toServe} onTouchStart={() => { this.touch(5) }} onTouchEnd={ this.touchStop }>
             <div className='text'>联系客服</div>
             <img className='menu-img' src={menuPic} alt='right' />
           </div>

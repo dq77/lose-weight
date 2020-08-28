@@ -49,3 +49,14 @@ export function creatGroup (data) {
     })
   })
 }
+
+// 获取个人月打卡数据
+export function getUserMonthList (data) {
+  return new Promise(function(reslove,reject){
+    Request.get('/api/reduce/dataMonth', {
+      params: data
+    }).then(res => {
+      reslove(res.data)
+    })
+  })
+}

@@ -14,6 +14,7 @@ import WeekList from './page/weekList/index';
 import NewGroup from './page/newGroup/index';
 import Login from './page/login/index';
 import Register from './page/login/register';
+import MonthHistory from './page/monthHistory/index';
 import Kefu from './page/kefu/index';
 
 ReactDOM.render(
@@ -23,6 +24,7 @@ ReactDOM.render(
     <Route path='/user' component={ App } />
     <Route path='/login' component={ Login } />
     <Route path='/register' component={ Register } />
+    <Route path='/monthHistory' component={ MonthHistory } />
     <Route path='/kefu' component={ Kefu } />
     <Route path='/qiandao' component={ Qiandao } />
     <Route path='/weekList/:id' component={ WeekList } />
