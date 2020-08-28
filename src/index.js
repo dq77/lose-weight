@@ -5,19 +5,25 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter, Route, Redirect } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import * as serviceWorker from './serviceWorker';
 import Qiandao from './page/qiandao/index';
 import WeekList from './page/weekList/index';
 import NewGroup from './page/newGroup/index';
-import { HashRouter, Route, Redirect } from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
+import Login from './page/login/index';
+import Register from './page/login/register';
+import Kefu from './page/kefu/index';
 
 ReactDOM.render(
   <HashRouter>
-    <Route exact path='/' render={() => <Redirect to='/index' push />} />
+    <Route exact path='/' render={() => <Redirect to='/user' push />} />
     <Route path='/index' component={ App } />
     <Route path='/user' component={ App } />
+    <Route path='/login' component={ Login } />
+    <Route path='/register' component={ Register } />
+    <Route path='/kefu' component={ Kefu } />
     <Route path='/qiandao' component={ Qiandao } />
     <Route path='/weekList/:id' component={ WeekList } />
     <Route path='/newGroup' component={ NewGroup } />
