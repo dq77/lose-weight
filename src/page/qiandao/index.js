@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-27 17:25:37
+ * @LastEditTime: 2020-08-31 10:43:51
  */ 
 import './index.scss'
 import React from 'react'
@@ -104,7 +104,7 @@ class Qiandao extends React.Component {
         localStorage.setItem('qiandaoInfo', JSON.stringify(param));
         localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
-          { text: '返回', onPress: () => {}},
+          { text: '返回', onPress: () => this.toUser()},
           { text: '查看周报', onPress: () => this.toPaper() }
         ])
       } else {
@@ -119,6 +119,12 @@ class Qiandao extends React.Component {
   }
   toPaper = () => {
     this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
+  }
+  toUser = () => {
+    this.props.history.push({ pathname: `/user` });
+  }
+  toServe = () => {
+    this.props.history.push({ pathname: `/kefu` });
   }
   toCreat = () => {
     this.props.history.push({ pathname: `/newGroup` });
@@ -146,6 +152,7 @@ class Qiandao extends React.Component {
           <Button type='primary' onClick={this.signIn}>打卡</Button>
         </div>
         <div className='creat'>
+          <span className='creat-btn' onClick={this.toServe}>联系客服</span>
           <span className='creat-btn' onClick={this.toCreat}>创建群</span>
         </div>
       </div>

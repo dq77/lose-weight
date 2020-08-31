@@ -17,6 +17,17 @@ export function getWeekList (data) {
   })
 }
 
+// 获取群月打卡数据
+export function getMonthList (data) {
+  return new Promise(function(reslove,reject){
+    Request.get('/api/reduce/groupDataWeek', {
+      params: data
+    }).then(res => {
+      reslove(res.data)
+    })
+  })
+}
+
 // 个人打卡
 export function writeInfo (data) {
   return new Promise(function(reslove,reject){

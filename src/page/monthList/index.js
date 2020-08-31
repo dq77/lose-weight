@@ -2,12 +2,13 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 13:51:02
+ * @LastEditTime: 2020-08-31 13:50:04
  */
 import React from 'react'
 import { Toast } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
 import { getCurrentTime, getWeekList } from '../../api/qiandao';
+import menuPic from '../../lib/image/user/menu-right.png'
 import './index.scss'
 
 class WeekList extends React.Component {

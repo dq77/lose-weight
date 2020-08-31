@@ -45,7 +45,7 @@
 - 所有的页面都在page 文件夹下，并且已模块分类  比如用户--user 单个模块下的公共组件放在views/模块文件夹/components 下
 - 路由也以模块分别定义文件， 在router 文件下 modules 下根据模块名称定义 然后导入到 router/index.js 下
 - store 文件下 为 redux 文件, 用来做 数据的状态管理，同样在modules 文件夹下添加当前模块的文件
-- icons 文件夹下用来存在 svg icon 图标, 如需要添加自己的图标到iconfont 上选择并下载svg 图标放到当前目录下
+- font 文件夹下用来存在 iconfont 图标, 如需要添加自己的图标到 [IconFont减肥网页版](https://www.iconfont.cn/manage/index?spm=a313x.7781069.1998910419.db775f1f3&manage_type=myprojects&projectId=2036807) 上选择并下载fontClass 图标放到当前目录下
 - 所有的接口封装按照模块定义在 @/api 下，例如 @/api/user.js 表示用户模块
 - public 何时使用
   - 你需要在构建输出中指定一个文件的名字。
