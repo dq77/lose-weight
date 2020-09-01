@@ -2,13 +2,12 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 11:00:52
+ * @LastEditTime: 2020-09-01 11:17:15
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
-import { getCurrentTime, getWeekList } from '../../api/qiandao';
-import { dateFormat } from '../../utils/date'
+import { getWeekList } from '../../api/qiandao';
 import './index.scss'
 
 class WeekList extends React.Component {
@@ -31,11 +30,9 @@ class WeekList extends React.Component {
   }
 
   getList = () => {
-    let beginDate = new Date(this.state.date.getFullYear(), 0, 1);
-    let week = Math.ceil((parseInt((this.state.date - beginDate) / (24 * 60 * 60 * 1000)) + 1 + beginDate.getDay()) / 7);
     const params = {
       groupId: this.state.groupId,
-      week: week,
+      week: this.getWeekOfYear(),
       year: this.state.date.getFullYear()
     }
     getWeekList(params).then(res => {
@@ -84,6 +81,20 @@ class WeekList extends React.Component {
     }
     return className
   }
+  getWeekOfYear = () => {
+    const today = this.state.date
+    let firstDay = new Date(today.getFullYear(),0, 1);
+    const dayOfWeek = firstDay.getDay(); 
+    let spendDay= 1;
+    if (dayOfWeek !== 0) {
+      spendDay=7-dayOfWeek+1;
+    }
+    firstDay = new Date(today.getFullYear(),0, 1+spendDay);
+    const d =Math.ceil((today.valueOf()- firstDay.valueOf())/ 86400000);
+    const result =Math.ceil(d/7);
+    return result+1;
+  }
+
   changeWeek = (date) => {
     this.setState({ date }, () => { this.getList() })
   }
