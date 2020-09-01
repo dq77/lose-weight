@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 11:17:15
+ * @LastEditTime: 2020-09-01 11:39:20
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -154,8 +154,8 @@ class WeekList extends React.Component {
     return (
       <div className='weeklist-page'>
         <List className='top-list'>
-          <List.Item arrow='horizontal' onClick={this.toMonth} extra={'查看月数据'}>
-            群名：{groupName} （{groupId}）
+          <List.Item arrow='horizontal' onClick={this.toMonth} extra={'前往月统计'}>
+            {groupName} ({groupId})
           </List.Item>
           <DatePicker mode='date' value={date} onChange={date => this.changeWeek(date)} maxDate={new Date()}>
             <List.Item arrow='horizontal'>选择日期</List.Item>
