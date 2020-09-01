@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:23
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 11:00:38
+ * @LastEditTime: 2020-09-01 14:00:03
  */ 
 .weeklist-page{
   width: 100%;
@@ -11,6 +11,9 @@
     .am-list-content, .am-list-extra{
       padding-top: 8px;
       padding-bottom: 6px;
+    }
+    .am-list-extra{
+      flex-basis: auto;
     }
   }
   .table-area{
@@ -77,11 +80,16 @@
         width: 46px;
         // border-right-color: green;
       }
+      .brline{
+        border-right-color: #DCDFE6;
+      }
       .yellow{
         background-color: #fdf5e6;
+        // color: #e6a23c;
       }
       .green{
         background-color: #f0f9eb;
+        // color: #67c23a;
       }
       .nickname{
         text-decoration:underline;
@@ -98,10 +106,15 @@
     left: 0;
     right: 0;
   }
-  .info-tip{
-    margin-left: 14px;
+  .btm-area{
+    padding: 0 14px 6px;
     font-size: 14px;
     color: #606266;
+    display: flex;
+    justify-content: space-between;
+    .edit{
+      text-decoration: underline;
+    }
   }
   .sign-area{
     margin-top: 50px;

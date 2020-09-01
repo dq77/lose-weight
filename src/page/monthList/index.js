@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 11:30:50
+ * @LastEditTime: 2020-09-01 13:44:19
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -156,12 +156,12 @@ class MonthList extends React.Component {
               <div className='content-area'>
                   <table className='table' border='0' cellSpacing='0'>
                     <tbody>
-                      <tr><td>昵称</td></tr>
+                      <tr><td style={{backgroundColor: '#ecf5ff',fontWeight: 'bold'}}>昵称</td></tr>
                       <tr><td>身高</td></tr>
                       <tr><td>入表</td></tr>
                       <tr><td>总目标</td></tr>
                       <tr><td>月目标</td></tr>
-                      <tr><td>月减</td></tr>
+                      <tr><td className='bbline'>月减</td></tr>
                       {groupMembers[0] && groupMembers[0].weights.map(item => {return (
                         <tr key={item.dateString}><td>{item.dateString.slice(5)}</td></tr>
                       )})}
@@ -196,12 +196,12 @@ class MonthList extends React.Component {
                     </tr>
                     <tr>
                       {groupMembers.map(item => {return (
-                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.monthTargetWeight}</td>
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.monthTargetWeight>0?item.monthTargetWeight:'-'}</td>
                       )})}
                     </tr>
                     <tr>
                       {groupMembers.map(item => {return (
-                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.monthReduce}</td>
+                        <td onClick={() => { this.clickLine(item) }} className='bbline' key={item.mobile}>{item.monthReduce}</td>
                       )})}
                     </tr>
                     {groupMembers[0] && groupMembers[0].weights.map((day, index) => {return (

@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 11:39:20
+ * @LastEditTime: 2020-09-01 14:01:33
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -99,6 +99,11 @@ class WeekList extends React.Component {
     this.setState({ date }, () => { this.getList() })
   }
 
+  editSign = () => {
+    localStorage.removeItem('signFlag');
+    this.props.history.replace({ pathname: `/qiandao` });
+  }
+
   toMonth = () => {
     this.props.history.replace({ pathname: `/monthList/${this.state.groupId}` });
   }
@@ -167,14 +172,14 @@ class WeekList extends React.Component {
               <thead>
                 <tr>
                   <td className='w70'>昵称</td>
-                  <td className='w46'>身高</td>
+                  <td className='w46 brline'>身高</td>
                   <td className='w46'>一</td>
                   <td className='w46'>二</td>
                   <td className='w46'>三</td>
                   <td className='w46'>四</td>
                   <td className='w46'>五</td>
                   <td className='w46'>六</td>
-                  <td className='w46'>日</td>
+                  <td className='w46 brline'>日</td>
                   <td className='w46'>周减</td>
                   <td className='w46'>月减</td>
                   <td className='w46'>周目标</td>
@@ -190,9 +195,9 @@ class WeekList extends React.Component {
                 {weekGroupDatas.map(item => (
                   <tr key={item.mobile} onClick={() => { this.clickLine(item) }} className={item.mobile === activeItem.mobile ? 'active' : ''}>
                     <td className='w70 nickname'>{item.nickname}</td>
-                    <td className='w46'>{item.height}</td>
+                    <td className='w46 brline'>{item.height}</td>
                     {item.weights.map((one, index) => (
-                      <td key={index} className={this.getColorByData(one, item.weights, index)}>
+                      <td key={index} className={`${this.getColorByData(one, item.weights, index)} ${index===6 && 'brline'}`}>
                         {one.dayWeight < 0 ? '-' : one.dayWeight}
                       </td>
                     ))}
@@ -209,9 +214,12 @@ class WeekList extends React.Component {
             </table>
           </div>
         </div>
-        {/* {!activeItem.weights && (
-          <div className='info-tip'>(点击昵称可查看详细数据)</div>
-        )} */}
+        {!activeItem.weights && (
+          <div className='btm-area'>
+            <div className='edit' onClick={this.editSign}>修改打卡</div>
+            <div>(点击昵称可查看详细数据)</div>
+          </div>
+        )}
         {activeItem.weights && (
           <div className='echart-area'>
             <ReactEcharts option={this.getEchartOption()} />
