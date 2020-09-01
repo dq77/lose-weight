@@ -2,21 +2,22 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 13:51:02
+ * @LastEditTime: 2020-09-01 11:00:52
  */
 import React from 'react'
-import { Toast } from 'antd-mobile';
+import { Toast, DatePicker, List } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
 import { getCurrentTime, getWeekList } from '../../api/qiandao';
+import { dateFormat } from '../../utils/date'
 import './index.scss'
 
 class WeekList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupId: '',
+      groupId: this.props.match.params.id,
       groupName: '',
-      week: '', // 当前周数
+      date: new Date(),
       weekGroupDatas: [],
       activeItem: {},
       loading: true
@@ -26,28 +27,16 @@ class WeekList extends React.Component {
 
   componentDidMount() {
     document.title = '周统计列表'
-    this.getWeek()
-  }
-  getWeek = () => {
-    getCurrentTime().then(res => {
-      if (res.code === '200') {
-        this.setState({
-          groupId: this.props.match.params.id,
-          week: res.data.week
-        }, () => {
-          this.getList()
-        })
-      } else {
-        Toast.fail(res.msg, 2);
-      }
-    })
+    this.getList()
   }
 
   getList = () => {
+    let beginDate = new Date(this.state.date.getFullYear(), 0, 1);
+    let week = Math.ceil((parseInt((this.state.date - beginDate) / (24 * 60 * 60 * 1000)) + 1 + beginDate.getDay()) / 7);
     const params = {
       groupId: this.state.groupId,
-      week: this.state.week,
-      year: new Date().getFullYear()
+      week: week,
+      year: this.state.date.getFullYear()
     }
     getWeekList(params).then(res => {
       if (res.code === '200') {
@@ -95,6 +84,14 @@ class WeekList extends React.Component {
     }
     return className
   }
+  changeWeek = (date) => {
+    this.setState({ date }, () => { this.getList() })
+  }
+
+  toMonth = () => {
+    this.props.history.replace({ pathname: `/monthList/${this.state.groupId}` });
+  }
+
   getEchartOption = () => {
     const item = this.state.activeItem
     return {
@@ -142,18 +139,17 @@ class WeekList extends React.Component {
   }
 
   render() {
-    const { weekGroupDatas, activeItem, groupName, groupId, loading } = this.state
+    const { weekGroupDatas, activeItem, groupName, groupId, loading, date } = this.state
     return (
       <div className='weeklist-page'>
-        <div className='top-info' onClick={this.topClick}>
-          <div className='group-info'>
-            群名： {groupName} （{groupId}）
-          </div>
-          <div className='right-area'>
-            {/* 查看月数据
-            <i className='iconfont icon-right' /> */}
-          </div>
-        </div>
+        <List className='top-list'>
+          <List.Item arrow='horizontal' onClick={this.toMonth} extra={'查看月数据'}>
+            群名：{groupName} （{groupId}）
+          </List.Item>
+          <DatePicker mode='date' value={date} onChange={date => this.changeWeek(date)} maxDate={new Date()}>
+            <List.Item arrow='horizontal'>选择日期</List.Item>
+          </DatePicker>
+        </List>
         <div className='table-area'>
           <div className='thead-area'>
             <table className='list-table' border='1' cellSpacing='0'>

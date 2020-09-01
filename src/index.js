@@ -12,6 +12,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Qiandao from './page/qiandao/index';
 import WeekList from './page/weekList/index';
+import MonthList from './page/monthList/index';
 import NewGroup from './page/newGroup/index';
 import Login from './page/login/index';
 import Register from './page/login/register';
@@ -29,6 +30,7 @@ ReactDOM.render(
     <Route path='/kefu' component={ Kefu } />
     <Route path='/qiandao' component={ Qiandao } />
     <Route path='/weekList/:id' component={ WeekList } />
+    <Route path='/monthList/:id' component={ MonthList } />
     <Route path='/newGroup' component={ NewGroup } />
   </HashRouter>
   , document.getElementById('root'));

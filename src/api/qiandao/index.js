@@ -20,7 +20,7 @@ export function getWeekList (data) {
 // 获取群月打卡数据
 export function getMonthList (data) {
   return new Promise(function(reslove,reject){
-    Request.get('/api/reduce/groupDataWeek', {
+    Request.get('/api/reduce/groupDataMonth', {
       params: data
     }).then(res => {
       reslove(res.data)

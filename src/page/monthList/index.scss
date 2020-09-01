@@ -2,101 +2,72 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:23
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 12:09:31
+ * @LastEditTime: 2020-09-01 10:45:21
  */ 
- .weeklist-page{
+ .monthlist-page{
   width: 100%;
-  .top-info{
+  .top-list{
+    margin-bottom: 15px;
+    .am-list-content, .am-list-extra{
+      padding-top: 8px;
+      padding-bottom: 6px;
+    }
+  }
+  .report-box{
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    .group-info{
-      padding: 22px 20px 18px;
+    border-collapse: collapse;
+    td{
+      background-color: #FFF;
+      color: #606266;
+      width: 70px;
+      border-right: 1px solid #ebeef5;
+      border-bottom: 1px solid #ebeef5;
+      padding: 10px 0 8px;
+      text-align: center;
+    }
+    td:nth-child(2n){
+      background-color: #fafafa;
+    }
+    .left-area{
+      width: 47px;
+      .content-area{
+        overflow: hidden;
+      }
     }
     .right-area{
-      font-size: 14px;
-      padding: 24px 20px 20px;
-      color: #606266;
-      .icon-right{
-        font-size: 14px;
-        height: 14px;
+      .content-area{
+        overflow: scroll;
+        .right-content-table{
+          width: 1775px;
+          table-layout:fixed;
+          .nickname{
+            width: 70px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-weight: bold;
+          }
+          .yellow{
+            background-color: #fdf5e6;
+          }
+          .green{
+            background-color: #f0f9eb;
+          }
+        }
       }
     }
   }
-  .table-area{
-    box-sizing: border-box;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    margin-bottom: 20px;
-    max-width: 731px;
+  .report-box.true{
+    display: none;
+  }
+  .report-box.trueactive{
+    padding-bottom: 260px;
+  }
+  .loading-tip{
+    text-align: center;
     color: #606266;
-    box-shadow: 0 2px 10px rgba($color: #AAA, $alpha: 0.2);
-    .thead-area{
-      position: relative;
-      width: 731px;
-      z-index: 4;
-      margin-bottom: -1px;
-      font-weight: bold;
-    }
-    .tbody-area{
-      position: relative;
-      z-index: 2;
-      width: 731px;
-      overflow-y: scroll;
-      overflow-x: auto;
-    }
-    .tbody-area.true{
-      margin-bottom: 260px;
-    }
-    .list-table{
-      background-color: #FFF;
-      width: 400px;
-      border-collapse: collapse;
-      table-layout: fixed;
-      border: 1px solid #ebeef5;
-      text-align: center;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      // max-height: 300px;
-      tr:nth-child(2n){
-        background-color: #fafafa;
-      }
-      tr.active{
-        color: #303133;
-        background-color: rgb(244, 244, 245);
-        .yellow{
-          background-color: rgb(250, 236, 216);
-        }
-        .green{
-          background-color: rgb(225, 243, 216);
-        }
-      }
-      td{
-        min-width: 34px;
-        padding: 10px 0 8px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 14px;
-        line-height: 14px;
-      }
-      .w70{
-        width: 70px;
-      }
-      .w46{
-        width: 46px;
-        // border-right-color: green;
-      }
-      .yellow{
-        background-color: #fdf5e6;
-      }
-      .green{
-        background-color: #f0f9eb;
-      }
-      .nickname{
-        text-decoration:underline
-      }
-    }
+    margin-top: 40px;
   }
   .echart-area{
     background-color: #f5f5f9;

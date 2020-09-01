@@ -2,23 +2,23 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 13:50:04
+ * @LastEditTime: 2020-09-01 10:47:54
  */
 import React from 'react'
-import { Toast } from 'antd-mobile';
+import { Toast, DatePicker, List } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
-import { getCurrentTime, getWeekList } from '../../api/qiandao';
-import menuPic from '../../lib/image/user/menu-right.png'
+import { getMonthList } from '../../api/qiandao';
+import { dateFormat } from '../../utils/date'
 import './index.scss'
 
-class WeekList extends React.Component {
+class MonthList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupId: '',
+      groupId: this.props.match.params.id,
       groupName: '',
-      week: '', // 当前周数
-      weekGroupDatas: [],
+      date: new Date(),
+      groupMembers: [],
       activeItem: {},
       loading: true
     }
@@ -26,34 +26,21 @@ class WeekList extends React.Component {
 
 
   componentDidMount() {
-    document.title = '周统计列表'
-    this.getWeek()
-  }
-  getWeek = () => {
-    getCurrentTime().then(res => {
-      if (res.code === '200') {
-        this.setState({
-          groupId: this.props.match.params.id,
-          week: res.data.week
-        }, () => {
-          this.getList()
-        })
-      } else {
-        Toast.fail(res.msg, 2);
-      }
-    })
+    document.title = '月统计列表'
+    console.log(document.documentElement.clientWidth);
+    this.getList()
   }
 
   getList = () => {
     const params = {
       groupId: this.state.groupId,
-      week: this.state.week,
-      year: new Date().getFullYear()
+      month:this.state.date.getMonth()+1,
+      year: this.state.date.getFullYear()
     }
-    getWeekList(params).then(res => {
+    getMonthList(params).then(res => {
       if (res.code === '200') {
         this.setState({
-          weekGroupDatas: res.data.groupMembers,
+          groupMembers: res.data.groupMembers,
           groupName: res.data.groupName,
           loading: false
         })
@@ -86,7 +73,7 @@ class WeekList extends React.Component {
         lastWeight = rowList[i]
       }
     }
-    let className = 'w46'
+    let className = 'w70'
     if (lastWeight && item.dayWeight > 0) {
       if (item.dayWeight < lastWeight) {
         className += ' green'
@@ -96,18 +83,28 @@ class WeekList extends React.Component {
     }
     return className
   }
+  changeMonth = (date) => {
+    this.setState({ date }, () => { this.getList() })
+  }
+
+  toWeek = () => {
+    this.props.history.replace({ pathname: `/weekList/${this.state.groupId}` });
+  }
+
   getEchartOption = () => {
     const item = this.state.activeItem
     return {
       title: {
         text: item.nickname,
-        subtext: `身高：${item.height} 　 周目标：${item.weekTargetWeight<0?'-':item.weekTargetWeight} 　 总目标：${item.targetWeight} `,
+        subtext: `身高：${item.height} 　 月目标：${item.monthTargetWeight<0?'-':item.monthTargetWeight} 　 总目标：${item.targetWeight} `,
         left: 'center',
         top: 4
       },
       xAxis: {
         type: 'category',
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        data: item.weights.map(oneDay => {
+          return oneDay.dateString.slice(5)
+        })
       },
       yAxis: {
         type: 'value',
@@ -143,69 +140,87 @@ class WeekList extends React.Component {
   }
 
   render() {
-    const { weekGroupDatas, activeItem, groupName, groupId, loading } = this.state
+    const { groupMembers, activeItem, groupName, groupId, loading, date } = this.state
     return (
-      <div className='weeklist-page'>
-        <div className='top-info' onClick={this.topClick}>
-          <div className='group-info'>
-            群名： {groupName} （{groupId}）
+      <div className='monthlist-page'>
+        <List className='top-list'>
+          <List.Item arrow='horizontal' onClick={this.toWeek} extra={'查看周数据'}>
+            群名：{groupName} （{groupId}）
+          </List.Item>
+          <DatePicker mode='month' value={date} onChange={date => this.changeMonth(date)} format={(value) =>{ return dateFormat(value, 'yyyy-MM') }} maxDate={new Date()}>
+            <List.Item arrow='horizontal'>选择月份</List.Item>
+          </DatePicker>
+        </List>
+        <div className={`report-box ${loading} ${!!activeItem.weights}active`}>
+          <div className='left-area'>
+              <div className='content-area'>
+                  <table className='table' border='0' cellSpacing='0'>
+                    <tbody>
+                      <tr><td>昵称</td></tr>
+                      <tr><td>身高</td></tr>
+                      <tr><td>入表</td></tr>
+                      <tr><td>总目标</td></tr>
+                      <tr><td>月目标</td></tr>
+                      <tr><td>月减</td></tr>
+                      {groupMembers[0] && groupMembers[0].weights.map(item => {return (
+                        <tr key={item.dateString}><td>{item.dateString.slice(5)}</td></tr>
+                      )})}
+                      <tr><td style={{visibility: 'hidden'}} /></tr>
+                    </tbody>
+                  </table>
+              </div>
           </div>
-          <div className='right-area'>
-            {/* 查看月数据
-            <i className='iconfont icon-right' /> */}
+          <div className='right-area' style={{width: `${document.documentElement.clientWidth-47}px`}}>
+            <div className='content-area'>
+                <table className='right-content-table' border='0' cellSpacing='0'>
+                  <tbody>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td className='nickname' onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.nickname}</td>
+                      )})}
+                    </tr>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.height}</td>
+                      )})}
+                    </tr>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.initWeight}</td>
+                      )})}
+                    </tr>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.targetWeight}</td>
+                      )})}
+                    </tr>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.monthTargetWeight}</td>
+                      )})}
+                    </tr>
+                    <tr>
+                      {groupMembers.map(item => {return (
+                        <td onClick={() => { this.clickLine(item) }} key={item.mobile}>{item.monthReduce}</td>
+                      )})}
+                    </tr>
+                    {groupMembers[0] && groupMembers[0].weights.map((day, index) => {return (
+                      <tr key={day.dateString}>
+                        {groupMembers.map(item => {return (
+                          <td key={item.mobile} onClick={() => { this.clickLine(item) }} className={this.getColorByData(item.weights[index], item.weights, index)}>
+                            {item.weights[index].dayWeight>0?item.weights[index].dayWeight:'-'}
+                          </td>
+                        )})}
+                      </tr>
+                    )})}
+                  </tbody>
+                </table>
+            </div>
           </div>
         </div>
-        <div className='table-area'>
-          <div className='thead-area'>
-            <table className='list-table' border='1' cellSpacing='0'>
-              <thead>
-                <tr>
-                  <td className='w70'>昵称</td>
-                  <td className='w46'>身高</td>
-                  <td className='w46'>一</td>
-                  <td className='w46'>二</td>
-                  <td className='w46'>三</td>
-                  <td className='w46'>四</td>
-                  <td className='w46'>五</td>
-                  <td className='w46'>六</td>
-                  <td className='w46'>日</td>
-                  <td className='w46'>周减</td>
-                  <td className='w46'>月减</td>
-                  <td className='w46'>周目标</td>
-                  <td className='w46'>月目标</td>
-                  <td className='w46'>总目标</td>
-                  <td className='w46'>入表</td></tr>
-              </thead>
-            </table>
-          </div>
-          <div className={`tbody-area ${!!activeItem.weights}`}>
-            <table className='list-table' border='1' cellSpacing='0'>
-              <tbody>
-                {weekGroupDatas.map(item => (
-                  <tr key={item.mobile} onClick={() => { this.clickLine(item) }} className={item.mobile === activeItem.mobile ? 'active' : ''}>
-                    <td className='w70 nickname'>{item.nickname}</td>
-                    <td className='w46'>{item.height}</td>
-                    {item.weights.map((one, index) => (
-                      <td key={index} className={this.getColorByData(one, item.weights, index)}>
-                        {one.dayWeight < 0 ? '-' : one.dayWeight}
-                      </td>
-                    ))}
-                    <td className={`w46 ${item.weekReduce > 0 ? 'green' : ''} ${item.weekReduce < 0 ? 'yellow' : ''}`}>{item.weekReduce}</td>
-                    <td className={`w46 ${item.monthReduces[0].monthReduce > 0 ? 'green' : ''} ${item.monthReduces[0].monthReduce < 0 ? 'yellow' : ''}`}>{item.monthReduces[0].monthReduce}</td>
-                    <td className='w46'>{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
-                    <td className='w46'>{item.monthTargetWeights[0].monthTargetWeight || '-'}</td>
-                    <td className='w46'>{item.targetWeight}</td>
-                    <td className='w46'>{item.initWeight}</td>
-                  </tr>
-                ))}
-                {loading && (<tr><td>加载中</td></tr>)}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {/* {!activeItem.weights && (
-          <div className='info-tip'>(点击昵称可查看详细数据)</div>
-        )} */}
+        {loading && (
+          <div className='loading-tip'>加载中</div>
+        )}
         {activeItem.weights && (
           <div className='echart-area'>
             <ReactEcharts option={this.getEchartOption()} />
@@ -215,4 +230,4 @@ class WeekList extends React.Component {
     )
   }
 }
-export default WeekList;
+export default MonthList;

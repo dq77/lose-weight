@@ -2,25 +2,15 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:23
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 12:09:31
+ * @LastEditTime: 2020-09-01 11:00:38
  */ 
 .weeklist-page{
   width: 100%;
-  .top-info{
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    .group-info{
-      padding: 22px 20px 18px;
-    }
-    .right-area{
-      font-size: 14px;
-      padding: 24px 20px 20px;
-      color: #606266;
-      .icon-right{
-        font-size: 14px;
-        height: 14px;
-      }
+  .top-list{
+    margin-bottom: 15px;
+    .am-list-content, .am-list-extra{
+      padding-top: 8px;
+      padding-bottom: 6px;
     }
   }
   .table-area{
@@ -94,7 +84,7 @@
         background-color: #f0f9eb;
       }
       .nickname{
-        text-decoration:underline
+        text-decoration:underline;
       }
     }
   }
