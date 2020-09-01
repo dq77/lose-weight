@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 14:01:33
+ * @LastEditTime: 2020-09-01 14:44:06
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -37,6 +37,18 @@ class WeekList extends React.Component {
     }
     getWeekList(params).then(res => {
       if (res.code === '200') {
+        // 跨月的周，月减字段和月目标字段的筛选
+        res.data.groupMembers.map(member => {
+          const monthReduce = member.monthReduces.filter(item => {
+            return item.month === this.state.date.getMonth()+1
+          })[0]
+          const monthTargetWeight = member.monthTargetWeights.filter(item => {
+            return item.month === this.state.date.getMonth()+1
+          })[0]
+          member.monthReduce = monthReduce ? monthReduce.monthReduce : '-'
+          member.monthTargetWeight = monthTargetWeight ? monthTargetWeight.monthTargetWeight : '-'
+        })
+        console.log(res.data.groupMembers);
         this.setState({
           weekGroupDatas: res.data.groupMembers,
           groupName: res.data.groupName,
@@ -202,9 +214,9 @@ class WeekList extends React.Component {
                       </td>
                     ))}
                     <td className={`w46 ${item.weekReduce > 0 ? 'green' : ''} ${item.weekReduce < 0 ? 'yellow' : ''}`}>{item.weekReduce}</td>
-                    <td className={`w46 ${item.monthReduces[0].monthReduce > 0 ? 'green' : ''} ${item.monthReduces[0].monthReduce < 0 ? 'yellow' : ''}`}>{item.monthReduces[0].monthReduce}</td>
+                    <td className={`w46 ${item.monthReduce > 0 ? 'green' : ''} ${item.monthReduce < 0 ? 'yellow' : ''}`}>{item.monthReduce}</td>
                     <td className='w46'>{item.weekTargetWeight < 0 ? '-' : item.weekTargetWeight}</td>
-                    <td className='w46'>{item.monthTargetWeights[0].monthTargetWeight || '-'}</td>
+                    <td className='w46'>{item.monthTargetWeight}</td>
                     <td className='w46'>{item.targetWeight}</td>
                     <td className='w46'>{item.initWeight}</td>
                   </tr>
