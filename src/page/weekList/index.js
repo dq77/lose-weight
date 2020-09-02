@@ -2,12 +2,13 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 14:44:06
+ * @LastEditTime: 2020-09-02 14:47:07
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
 import { getWeekList } from '../../api/qiandao';
+import { getCookie, setCookie, delCookie } from '../../utils/cookie'
 import './index.scss'
 
 class WeekList extends React.Component {
@@ -113,6 +114,7 @@ class WeekList extends React.Component {
 
   editSign = () => {
     localStorage.removeItem('signFlag');
+    delCookie('signFlag')
     this.props.history.replace({ pathname: `/qiandao` });
   }
 

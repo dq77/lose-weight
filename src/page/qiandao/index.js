@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-31 10:43:51
+ * @LastEditTime: 2020-09-02 14:42:26
  */ 
 import './index.scss'
 import React from 'react'
@@ -10,6 +10,7 @@ import { List, InputItem, Button, Modal, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { writeInfo } from '../../api/qiandao';
 import { dateFormat } from '../../utils/date'
+import { getCookie, setCookie, delCookie } from '../../utils/cookie'
 
 class Qiandao extends React.Component {
   constructor(props) {
@@ -31,11 +32,11 @@ class Qiandao extends React.Component {
 
   componentDidMount() {
     document.title='每日打卡'
-    const qiandaoInfo = localStorage.getItem('qiandaoInfo')
+    const qiandaoInfo = localStorage.getItem('qiandaoInfo') || getCookie('qiandaoInfo')
     if (qiandaoInfo) {
       try {
         const info = JSON.parse(qiandaoInfo)
-        const signFlag = localStorage.getItem('signFlag')
+        const signFlag = localStorage.getItem('signFlag') || getCookie('signFlag')
         if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
           // 今日已经打过卡了 直接去列表页
           this.setState({ groupId: info.groupId }, () => {
@@ -53,6 +54,7 @@ class Qiandao extends React.Component {
         })
       } catch(e) {
         localStorage.removeItem('qiandaoInfo')
+        delCookie('qiandaoInfo')
       }
     }
     this.getDay()
@@ -103,6 +105,8 @@ class Qiandao extends React.Component {
       if (res.code === '200') {
         localStorage.setItem('qiandaoInfo', JSON.stringify(param));
         localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
+        setCookie('qiandaoInfo', JSON.stringify(param))
+        setCookie('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'))
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
           { text: '返回', onPress: () => this.toUser()},
           { text: '查看周报', onPress: () => this.toPaper() }
