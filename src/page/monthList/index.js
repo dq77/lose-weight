@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-01 13:44:19
+ * @LastEditTime: 2020-09-02 15:49:32
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -172,7 +172,7 @@ class MonthList extends React.Component {
           </div>
           <div className='right-area' style={{width: `${document.documentElement.clientWidth-47}px`}}>
             <div className='content-area'>
-                <table className='right-content-table' border='0' cellSpacing='0'>
+                <table className='right-content-table' style={{width: `${71 * groupMembers.length}px`}} border='0' cellSpacing='0'>
                   <tbody>
                     <tr>
                       {groupMembers.map(item => {return (
