@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-02 14:42:26
+ * @LastEditTime: 2020-09-02 14:57:04
  */ 
 import './index.scss'
 import React from 'react'
@@ -32,11 +32,11 @@ class Qiandao extends React.Component {
 
   componentDidMount() {
     document.title='每日打卡'
-    const qiandaoInfo = localStorage.getItem('qiandaoInfo') || getCookie('qiandaoInfo')
+    const qiandaoInfo = getCookie('qiandaoInfo') || localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
       try {
         const info = JSON.parse(qiandaoInfo)
-        const signFlag = localStorage.getItem('signFlag') || getCookie('signFlag')
+        const signFlag = getCookie('signFlag') || localStorage.getItem('signFlag')
         if (signFlag === dateFormat(new Date(), 'yyyy-MM-dd')) {
           // 今日已经打过卡了 直接去列表页
           this.setState({ groupId: info.groupId }, () => {
@@ -156,7 +156,7 @@ class Qiandao extends React.Component {
           <Button type='primary' onClick={this.signIn}>打卡</Button>
         </div>
         <div className='creat'>
-          <span className='creat-btn' onClick={this.toServe}>联系客服</span>
+          <span className='creat-btn' onClick={this.toServe}>点击联系客服</span>
           <span className='creat-btn' onClick={this.toCreat}>创建群</span>
         </div>
       </div>

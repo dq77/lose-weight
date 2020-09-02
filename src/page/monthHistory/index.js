@@ -2,13 +2,14 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-28 17:30:00
+ * @LastEditTime: 2020-09-02 14:58:16
  */ 
 import './index.scss'
 import React from 'react'
 import { DatePicker, Toast, List } from 'antd-mobile';
 import { getUserMonthList } from '../../api/qiandao';
 import { dateFormat } from '../../utils/date'
+import { getCookie, delCookie } from '../../utils/cookie'
 
 class MonthHistory extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class MonthHistory extends React.Component {
 
   componentDidMount() {
     document.title='打卡记录'
-    const qiandaoInfo = localStorage.getItem('qiandaoInfo')
+    const qiandaoInfo = getCookie('qiandaoInfo') || localStorage.getItem('qiandaoInfo')
     if (qiandaoInfo) {
       try {
         const info = JSON.parse(qiandaoInfo)
@@ -32,6 +33,7 @@ class MonthHistory extends React.Component {
         }, () => { this.getList() })
       } catch(e) {
         localStorage.removeItem('qiandaoInfo')
+        delCookie('qiandaoInfo')
       }
     }
   }
