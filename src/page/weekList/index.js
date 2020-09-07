@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-07 15:33:31
+ * @LastEditTime: 2020-09-07 16:02:16
  */
 import React from 'react'
 import { Toast, DatePicker, List, ActionSheet, Modal } from 'antd-mobile';
@@ -161,9 +161,9 @@ class WeekList extends React.Component {
     });
   }
   delItem = () => {
-    Modal.alert('移除群员', `确认移除 “${this.state.activeItem.nickname}” 吗？`, [
+    Modal.alert('移除群员', `是否移除 “${this.state.activeItem.nickname}” ？`, [
       { text: '取消', onPress: () => {}},
-      { text: '确认', onPress: () => {
+      { text: '确定', onPress: () => {
         const params = {
           groupId: this.state.groupId,
           mobile: this.state.activeItem.mobile
@@ -183,7 +183,7 @@ class WeekList extends React.Component {
   quitGroup = () => {
     Modal.alert('退出群组', `确认退出 “${this.state.groupName}” 吗？`, [
       { text: '取消', onPress: () => {}},
-      { text: '确认', onPress: () => {
+      { text: '确定', onPress: () => {
         const params = {
           groupId: this.state.groupId,
           mobile: this.state.qiandaoInfo.mobile
