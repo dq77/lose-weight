@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-08-27 10:03:20
+ * @LastEditTime: 2020-09-07 13:36:39
  */ 
 import './index.scss'
 import React from 'react'
@@ -78,16 +78,16 @@ class Group extends React.Component {
   render () {
     const { mobile, groupName, groupSize } = this.state
     return (
-      <div className="creat-group-page">
-        <div className="form-area">
+      <div className='creat-group-page'>
+        <div className='form-area'>
           <List>
-            <InputItem labelNumber={6} onChange={this.changemobile} type="phone" value={mobile} placeholder="请输入手机号">手机号码</InputItem>
-            <InputItem labelNumber={6} onChange={this.changegroupName} value={groupName} placeholder="请输入群名称">群名称</InputItem>
-            <InputItem labelNumber={6} onChange={this.changegroupSize} type="digit" value={groupSize} placeholder="请输入群最大人数" extra="人">群容量</InputItem>
+            <InputItem labelNumber={6} onChange={this.changemobile} type='phone' value={mobile} placeholder='请输入手机号'>手机号码</InputItem>
+            <InputItem labelNumber={6} onChange={this.changegroupName} value={groupName} placeholder='请输入群名称'>群名称</InputItem>
+            <InputItem labelNumber={6} onChange={this.changegroupSize} type='digit' value={groupSize} placeholder='请输入群最大人数' extra='人'>群容量</InputItem>
           </List>
         </div>
-        <div className="sign-area">
-          <Button type="primary" onClick={this.signIn}>创建群</Button>
+        <div className='sign-area'>
+          <Button type='primary' onClick={this.signIn}>创建群</Button>
         </div>
       </div>
     )

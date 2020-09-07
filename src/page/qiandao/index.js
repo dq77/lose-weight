@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2019-09-10 17:23:58
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-02 14:57:04
+ * @LastEditTime: 2020-09-07 15:26:44
  */ 
 import './index.scss'
 import React from 'react'
@@ -103,8 +103,8 @@ class Qiandao extends React.Component {
     }
     writeInfo(param).then(res => {
       if (res.code === '200') {
-        localStorage.setItem('qiandaoInfo', JSON.stringify(param));
-        localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
+        // localStorage.setItem('qiandaoInfo', JSON.stringify(param));
+        // localStorage.setItem('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'));
         setCookie('qiandaoInfo', JSON.stringify(param))
         setCookie('signFlag', dateFormat(new Date(), 'yyyy-MM-dd'))
         Modal.alert('打卡成功', '恭喜您，打卡成功！', [
@@ -156,7 +156,7 @@ class Qiandao extends React.Component {
           <Button type='primary' onClick={this.signIn}>打卡</Button>
         </div>
         <div className='creat'>
-          <span className='creat-btn' onClick={this.toServe}>点击联系客服</span>
+          <span className='creat-btn' onClick={this.toServe}>联系客服</span>
           <span className='creat-btn' onClick={this.toCreat}>创建群</span>
         </div>
       </div>

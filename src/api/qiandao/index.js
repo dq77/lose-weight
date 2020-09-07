@@ -71,3 +71,27 @@ export function getUserMonthList (data) {
     })
   })
 }
+
+// 踢人出群
+export function delPerson (data) {
+  return new Promise(function(reslove,reject){
+    Request.get('/api/currentTime', {
+      params: data
+    }).then(res => {
+      reslove(res.data)
+    })
+  })
+}
+
+// 退出群组
+export function quitGroup (data) {
+  return new Promise(function(reslove,reject){
+    Request.get('/api/currentTime', {
+      params: data
+    }).then(res => {
+      reslove(res.data)
+    })
+  })
+}
+
+
