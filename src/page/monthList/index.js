@@ -2,7 +2,7 @@
  * @Author: 刁琪
  * @Date: 2020-07-23 20:00:20
  * @LastEditors: わからないよう
- * @LastEditTime: 2020-09-02 15:49:32
+ * @LastEditTime: 2020-09-08 11:38:14
  */
 import React from 'react'
 import { Toast, DatePicker, List } from 'antd-mobile';
@@ -98,7 +98,7 @@ class MonthList extends React.Component {
         text: item.nickname,
         subtext: `身高：${item.height} 　 月目标：${item.monthTargetWeight<0?'-':item.monthTargetWeight} 　 总目标：${item.targetWeight} `,
         left: 'center',
-        top: 4
+        top: 14
       },
       xAxis: {
         type: 'category',
@@ -121,7 +121,7 @@ class MonthList extends React.Component {
       grid: {
         bottom: 40,
         height: 180,
-        top: 50
+        top: 60
       },
       series: [{
         data: item.weights.map(item => {
